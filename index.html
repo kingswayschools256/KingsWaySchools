@@ -296,9 +296,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const slides = document.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.indicator-dot');
             const carouselContainer = document.getElementById('carousel-container');
+            const slides = carouselContainer.querySelectorAll('.slide');
+            const dots = carouselContainer.querySelectorAll('.indicator-dot');
 
             let currentSlideIndex = 0;
             const slideDuration = 5000; // 5 seconds per slide
