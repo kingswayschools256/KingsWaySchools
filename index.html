@@ -626,7 +626,7 @@
             // Deactivate all tab buttons
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('bg-pastel-deep', 'text-white', 'shadow-md');
-                btn.classList.add('text-slate-600', 'hover:bg-slate-200/50');
+                btn.classList.add('text-white', 'hover:bg-slate-200/50');
             });
 
             // Show target section
@@ -634,7 +634,7 @@
 
             // Activate corresponding tab button
             const activeBtn = document.getElementById(`tab-${targetSect}`);
-            activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-200/50');
+            activeBtn.classList.remove('text-white', 'hover:bg-slate-200/50');
             activeBtn.classList.add('bg-pastel-deep', 'text-white', 'shadow-md');
 
             // Pause high school video if switching away
