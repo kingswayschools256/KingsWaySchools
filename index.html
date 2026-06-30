@@ -1,561 +1,511 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kings Way Schools | Seguku</title>
+    <title>Kings Way School</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts (Cinzel for elegant serif titles, Inter for high legibility sans) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            navy: '#0F2C59',        // Deep Premium Academic Navy
-                            navyLight: '#1B4D8F',   // Soft Slate Blue
-                            sky: '#3E8BFF',         // Rich Electric Blue
-                            skyLight: '#F4F8FD',    // Cleanest soft cool blue background tint
-                            accent: '#D4AF37',      // Bright Refined Gold Accent
-                            accentLight: '#FCF8EB', // Ultra soft gold/cream highlights
-                            cream: '#FCFCFD',       // Pure off-white page background
-                            textDark: '#1E293B',    // Dark slate for optimal reading contrast
-                            borderSoft: '#E2E8F0'   // Crisp layout border divider
+                        pastel: {
+                            deep: '#1E40AF',       /* Rich academic blue */
+                            brand: '#0EA5E9',      /* Bright signature sky blue from Crested SS */
+                            sky: '#38BDF8',        /* Soft sky highlight */
+                            periwinkle: '#93C5FD', /* Dreamy periwinkle */
+                            ice: '#F0F9FF',        /* Gentle base backdrop */
+                            glacier: '#E0F2FE',    /* Soft blue-grey midtones */
+                            slate: '#334155',      /* Legible body text */
+                            navy: '#0F172A'        /* High-contrast text color */
                         }
                     },
                     fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
                         sans: ['Inter', 'sans-serif'],
-                        serif: ['Cinzel', 'serif'],
                     }
                 }
             }
         }
     </script>
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome for modern icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        .custom-scroll::-webkit-scrollbar {
-            width: 6px;
+           /* Lightbox styling */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
         }
-        .custom-scroll::-webkit-scrollbar-track {
-            background: #F4F8FD;
+        #lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: #1B4D8F;
-            border-radius: 4px;
+
+     /* Scroll to Top Button Styling */
+#scrollTopBtn {
+    display: none; /* Keep hidden by default */
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9999; /* Higher z-index to stay on top of all sections */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+#scrollTopBtn:hover {
+    transform: translateY(-5px);
+    background-color: #0EA5E9;
+}
+
+        /* Premium pastel-blue themed scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
         }
-        body {
-            background-color: #FCFCFD;
-            color: #1E293B;
-            font-family: 'Inter', sans-serif;
+        ::-webkit-scrollbar-track {
+            background: #F0F9FF;
         }
-        .hero-pattern {
-            background-image: radial-gradient(rgba(15, 44, 89, 0.05) 1px, transparent 1px);
-            background-size: 24px 24px;
+        ::-webkit-scrollbar-thumb {
+            background: #BAE6FD;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0EA5E9;
         }
     </style>
 </head>
-<body class="selection:bg-brand-sky/20 selection:text-brand-navy" x-data="schoolApp()">
-
-    <!-- TOP RIBBON DETAILS (Modeled exactly on Crested SS structure) -->
-    <div class="bg-brand-navy text-white text-xs py-2.5 px-4 sticky top-0 z-50 border-b border-white/10 hidden lg:block">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-6">
-                <a href="tel:+256772490120" class="hover:text-brand-accent transition-colors flex items-center">
-                    <i class="fa-solid fa-phone text-brand-accent mr-1.5"></i> +256 (0) 772 490120 / +256 (0) 705 331533
-                </a>
-                <a href="mailto:info@kingswayschools.ac.ug" class="hover:text-brand-accent transition-colors flex items-center">
-                    <i class="fa-solid fa-envelope text-brand-accent mr-1.5"></i> info@kingswayschools.ac.ug
-                </a>
-                <span class="flex items-center text-slate-300">
-                    <i class="fa-solid fa-location-dot text-brand-accent mr-1.5"></i> Seguku, Entebbe Road, Kampala
-                </span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <span class="bg-brand-accent/20 text-brand-accent border border-brand-accent/30 px-3 py-0.5 rounded-full font-bold uppercase tracking-wider text-[10px]">
-                    UNEB Center No. U0943
-                </span>
-                <span class="text-slate-300">|</span>
-                <div class="flex space-x-2.5">
-                    <a href="#" class="hover:text-brand-accent transition"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="hover:text-brand-accent transition"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#" class="hover:text-brand-accent transition"><i class="fa-brands fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- STICKY HEADER NAVIGATION (Direct copy of standard structural layout) -->
-    <header class="bg-white text-brand-textDark sticky top-0 lg:top-[37px] z-40 shadow-md border-b border-brand-borderSoft transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 lg:px-6 py-3.5 flex justify-between items-center">
-            <!-- Brand Identity Crest Left -->
-            <a href="#" class="flex items-center space-x-3 group">
-                <div class="w-12 h-12 bg-brand-navy rounded-xl flex items-center justify-center font-bold text-2xl border-2 border-brand-accent shadow-sm transition-transform group-hover:scale-105">
-                    <div class="relative flex items-center justify-center">
-                        <span class="text-brand-accent font-serif text-3xl font-extrabold">K</span>
-                        <span class="absolute text-[8px] -bottom-2 tracking-widest text-white font-sans uppercase font-bold">W</span>
-                    </div>
-                </div>
-                <div class="leading-none">
-                    <h1 class="text-lg font-extrabold tracking-tight text-brand-navy font-serif">KINGS WAY</h1>
-                    <span class="text-[9px] tracking-wider font-extrabold text-brand-accent uppercase block mt-0.5">Nursery, Primary & High School</span>
-                </div>
-            </a>
-
-            <!-- Menu Navigation Links Center -->
-            <nav class="hidden lg:flex items-center space-x-7 font-bold text-xs uppercase tracking-wider text-brand-navy/90">
-                <a href="#home" @click.prevent="scrollToSection('home')" class="hover:text-brand-sky relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-sky hover:after:w-full after:transition-all">Home</a>
-                <a href="#about" @click.prevent="scrollToSection('about')" class="hover:text-brand-sky relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-sky hover:after:w-full after:transition-all">About Us</a>
-                <a href="#academics" @click.prevent="scrollToSection('academics')" class="hover:text-brand-sky relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-sky hover:after:w-full after:transition-all">Academics</a>
-                <a href="#campuses" @click.prevent="scrollToSection('campuses')" class="hover:text-brand-sky relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-sky hover:after:w-full after:transition-all">Campuses</a>
-                <a href="#co-curricular" @click.prevent="scrollToSection('co-curricular')" class="hover:text-brand-sky relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-sky hover:after:w-full after:transition-all">Co-curricular</a>
-                <a href="#gallery" @click.prevent="scrollToSection('gallery')" class="hover:text-brand-sky relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-sky hover:after:w-full after:transition-all">Gallery</a>
-                <a href="#admissions" @click.prevent="scrollToSection('admissions')" class="hover:text-brand-sky relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-sky hover:after:w-full after:transition-all">Admissions</a>
-            </nav>
-
-            <!-- Dynamic CTA Button Right -->
-            <div class="flex items-center space-x-3">
-                <a href="#admissions" @click.prevent="scrollToSection('admissions')" class="hidden sm:inline-flex items-center justify-center bg-brand-navy hover:bg-brand-navyLight text-white font-bold text-xs uppercase tracking-wider py-3 px-6 rounded-lg transition-all duration-300 shadow-md border-b-2 border-brand-accent">
-                    Apply Now
-                </a>
-                <!-- Mobile Navigation Button -->
-                <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 text-brand-navy text-2xl hover:bg-brand-skyLight rounded-lg transition" aria-label="Toggle menu">
-                    <i class="fa-solid animate-pulse" :class="mobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- MOBILE DROPDOWN MENU -->
-    <div x-show="mobileMenuOpen" x-transition.opacity class="lg:hidden fixed inset-0 z-30 bg-brand-navy/95 backdrop-blur-md pt-24 px-6 text-white text-lg space-y-4">
-        <a @click="mobileMenuOpen = false; scrollToSection('home')" href="#home" class="block py-2.5 border-b border-white/10 font-bold tracking-wide text-brand-accent"><i class="fa-solid fa-house mr-3"></i>Home</a>
-        <a @click="mobileMenuOpen = false; scrollToSection('about')" href="#about" class="block py-2.5 border-b border-white/10 font-bold tracking-wide"><i class="fa-solid fa-circle-info mr-3"></i>About Us</a>
-        <a @click="mobileMenuOpen = false; scrollToSection('academics')" href="#academics" class="block py-2.5 border-b border-white/10 font-bold tracking-wide"><i class="fa-solid fa-graduation-cap mr-3"></i>Academics</a>
-        <a @click="mobileMenuOpen = false; scrollToSection('campuses')" href="#campuses" class="block py-2.5 border-b border-white/10 font-bold tracking-wide"><i class="fa-solid fa-school mr-3"></i>Campuses</a>
-        <a @click="mobileMenuOpen = false; scrollToSection('co-curricular')" href="#co-curricular" class="block py-2.5 border-b border-white/10 font-bold tracking-wide"><i class="fa-solid fa-puzzle-piece mr-3"></i>Co-curricular</a>
-        <a @click="mobileMenuOpen = false; scrollToSection('gallery')" href="#gallery" class="block py-2.5 border-b border-white/10 font-bold tracking-wide"><i class="fa-solid fa-images mr-3"></i>Gallery</a>
-        <a @click="mobileMenuOpen = false; scrollToSection('admissions')" href="#admissions" class="block py-2.5 font-bold tracking-wide text-brand-accent"><i class="fa-solid fa-file-signature mr-3"></i>Admissions</a>
-    </div>
-
-    <!-- HERO SECTION WITH SWEEPING PRESENTATION -->
-    <section id="home" class="relative min-h-[85vh] flex items-center bg-gradient-to-br from-brand-navy to-brand-navyLight text-white overflow-hidden py-20">
-        <!-- Structural Background Overlay Grid Pattern -->
-        <div class="absolute inset-0 opacity-10 bg-repeat hero-pattern"></div>
-        <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-accent rounded-full blur-[120px] opacity-20"></div>
-        <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-brand-sky rounded-full blur-[120px] opacity-25"></div>
-
-        <div class="max-w-7xl mx-auto px-4 lg:px-6 relative z-10 w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Hero Left Content -->
-                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <span class="inline-flex items-center gap-2 bg-brand-accent/20 border border-brand-accent/30 rounded-full py-1.5 px-4 text-xs font-bold tracking-wider uppercase text-brand-accent">
-                        <i class="fa-solid fa-certificate"></i> Excellence Driven Since 2001
-                    </span>
-                    
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-extrabold tracking-tight leading-tight">
-                        Learning Begins <br class="hidden md:inline"> With Us at <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent via-white to-brand-sky">
-                            Kings Way Schools
-                        </span>
-                    </h2>
-
-                    <p class="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed mx-auto lg:mx-0">
-                        Offering supportive, nurturing and inspirational environments for young enquiring minds to learn and grow. We walk our students to standard-setting achievement, preparing them to take on the world with character, integrity, and faith.
-                    </p>
-
-                    <div class="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
-                        <a href="#admissions" @click.prevent="scrollToSection('admissions')" class="bg-brand-accent hover:bg-white text-brand-navy font-bold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 text-center flex items-center justify-center gap-2 text-xs uppercase tracking-wider border-2 border-brand-accent hover:border-white">
-                            <i class="fa-solid fa-file-circle-check"></i> Admissions Open
-                        </a>
-                        <a href="#about" @click.prevent="scrollToSection('about')" class="bg-transparent hover:bg-white/10 text-white font-bold px-8 py-4 rounded-xl border-2 border-white/30 transition-all duration-300 text-center flex items-center justify-center gap-2 text-xs uppercase tracking-wider">
-                            Know More About Us <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Hero Right Media Frame -->
-                <div class="lg:col-span-5 relative mt-8 lg:mt-0">
-                    <div class="relative mx-auto max-w-[420px] lg:max-w-none">
-                        <!-- Premium Framing borders -->
-                        <div class="absolute -inset-2 bg-gradient-to-tr from-brand-accent via-brand-sky to-brand-navy rounded-3xl blur-md opacity-30"></div>
-                        
-                        <!-- Main Frame Showcase -->
-                        <div class="relative bg-white border border-brand-borderSoft rounded-2xl overflow-hidden shadow-2xl p-4">
-                            <div class="relative h-64 sm:h-80 w-full bg-brand-navy rounded-xl overflow-hidden flex flex-col justify-end p-5 border border-brand-borderSoft">
-                                <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop');"></div>
-                                <div class="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/30 to-transparent"></div>
-                                <div class="relative text-left z-10">
-                                    <span class="bg-brand-accent text-brand-navy font-bold text-[9px] px-2.5 py-1 rounded-full uppercase tracking-widest">Active Enrollment</span>
-                                    <h3 class="text-lg sm:text-xl font-serif font-bold mt-2 text-white">Nurturing Future Leaders</h3>
-                                    <p class="text-[11px] text-slate-300 mt-1">Dedicated campuses providing premium UNEB Ordinary, Advanced, and Nursery curricula along Entebbe Road.</p>
-                                </div>
-                            </div>
+<body class="font-sans bg-pastel-ice text-pastel-slate antialiased leading-relaxed">
+ 
+    <!-- Unified Sticky Header Wrapper (Contains both the Top Bar and the Navigation Menu) -->
+    <div class="sticky top-0 z-40 w-full shadow-md bg-white">
+        <!-- Top Micro Info Bar -->
+        <header class="w-full relative">
+            <div class="bg-pastel-glacier text-pastel-slate py-2.5 px-4 text-xs font-semibold border-b border-pastel-periwinkle/30">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+                    <div class="flex items-center space-x-4">
                         </div>
+                    <div class="flex items-center space-x-3">
+                        <span class="flex items-center gap-1.5 text-pastel-deep"><i class="fa-solid fa-phone text-pastel-brand"></i> +256 772 500 739</span>
+                        <span class="hidden md:inline text-pastel-periwinkle">|</span>
+                        <span class="flex items-center gap-1.5 text-pastel-deep"><i class="fa-solid fa-envelope text-pastel-brand"></i> crestedsecschool@gmail.com</span>
+                     </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation bar -->
+        <nav class="bg-white/95 backdrop-blur-md border-b border-pastel-glacier relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <!-- Brand Identity & Logo -->
+                    <a href="#" class="flex items-center space-x-3 group shrink-0">
+                        <div class="w-12 h-12 rounded-xl bg-pastel-ice border border-pastel-sky flex items-center justify-center text-pastel-deep group-hover:scale-105 transition-all">
+                            <img src="images/Crested_SS_logo.jpg" alt="Kings Way School Logo" class="w-10 h-10 object-contain">                        
+                        </div>
+
+                        <div>                                        
+        <span class="block ext-base md:text-lg font-bold text-[#0EA5E9] tracking-tight" style="font-family: 'Poppins', sans-serif;">KINGS WAY</span>
+
+
+                            <span class="block text-[10px] text-pastel-deep uppercase font-bold">School • We Invest in Education</span>
+                        </div>
+                    </a>
+
+                    <!-- Desktop Nav Links - Conforming strictly to the screenshot menu items -->
+                    <div class="hidden lg:flex items-center space-x-5 font-bold text-xs uppercase tracking-wider text-pastel-slate">
+                        <a href="#home" class="nav-link text-pastel-brand hover:text-pastel-deep transition py-2 border-b-2 border-pastel-brand">Home</a>
+                        <a href="#about" class="nav-link hover:text-pastel-brand transition py-2 border-b-2 border-transparent">About Us</a>
+                        <a href="#academics" class="nav-link hover:text-pastel-brand transition py-2 border-b-2 border-transparent">Academics</a>
+                        <a href="#uniform" class="nav-link hover:text-pastel-brand transition py-2 border-b-2 border-transparent">Uniform</a>
+                        <a href="#calendar" class="nav-link hover:text-pastel-brand transition py-2 border-b-2 border-transparent">School Calendar</a>
+                        <a href="#staff" class="nav-link hover:text-pastel-brand transition py-2 border-b-2 border-transparent">Our Staff</a>
+                        <a href="#gallery" class="nav-link hover:text-pastel-brand transition py-2 border-b-2 border-transparent">Gallery</a>
+                        <a href="#conduct" class="nav-link hover:text-pastel-brand transition py-2 border-b-2 border-transparent">Code of Conduct</a>
+                        <a href="#contact" class="nav-link hover:text-pastel-brand transition py-2 border-b-2 border-transparent">Contact Us</a>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="lg:hidden">
+                        <button onclick="toggleMobileMenu()" class="text-pastel-deep hover:text-pastel-brand focus:outline-none p-2">
+                            <i id="menuIcon" class="fa-solid fa-bars text-2xl"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- QUICK NUMERICAL STATISTICS (Standard structural element) -->
-    <section class="relative z-20 -mt-10 max-w-7xl mx-auto px-4 lg:px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-            <!-- Counter 1 -->
-            <div class="bg-white border border-brand-borderSoft rounded-2xl p-6 text-center shadow-lg hover:-translate-y-1 transition duration-300">
-                <div class="w-10 h-10 bg-brand-skyLight text-brand-sky rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <i class="fa-solid fa-users text-lg"></i>
-                </div>
-                <h4 class="text-2xl sm:text-3xl font-serif font-black text-brand-navy">1,500+</h4>
-                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mt-1">Current Enrollments</p>
+            <!-- Mobile Dropdown Menu matching the screenshot items -->
+            <div id="mobileMenu" class="hidden lg:hidden border-t border-pastel-glacier bg-white px-4 pt-2 pb-6 space-y-2 shadow-lg text-xs uppercase font-bold tracking-wider">
+                <a href="#home" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-pastel-brand bg-pastel-ice">Home</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-pastel-slate hover:bg-pastel-ice hover:text-pastel-brand transition">About Us</a>
+                <a href="#academics" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-pastel-slate hover:bg-pastel-ice hover:text-pastel-brand transition">Academics</a>
+                <a href="#uniform" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-pastel-slate hover:bg-pastel-ice hover:text-pastel-brand transition">Uniform</a>
+                <a href="#calendar" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-pastel-slate hover:bg-pastel-ice hover:text-pastel-brand transition">School Calendar</a>
+                <a href="#staff" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-pastel-slate hover:bg-pastel-ice hover:text-pastel-brand transition">Our Staff</a>
+                <a href="#gallery" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-pastel-slate hover:bg-pastel-ice hover:text-pastel-brand transition">Gallery</a>
+                <a href="#conduct" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-pastel-slate hover:bg-pastel-ice hover:text-pastel-brand transition">Code of Conduct</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-pastel-slate hover:bg-pastel-ice hover:text-pastel-brand transition">Contact Us</a>
             </div>
-            <!-- Counter 2 -->
-            <div class="bg-white border border-brand-borderSoft rounded-2xl p-6 text-center shadow-lg hover:-translate-y-1 transition duration-300">
-                <div class="w-10 h-10 bg-brand-accentLight text-brand-accent rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <i class="fa-solid fa-user-tie text-lg"></i>
+        </nav>
+    </div>
+
+    <!-- Home Hero Banner -->
+  <section id="home" class="relative overflow-hidden pt-12 pb-40 lg:pt-20 lg:pb-51.8 bg-pastel-glacier scroll-mt-32">
+    
+    <div class="absolute inset-0 z-0 opacity-40 pointer-events-none">
+        <div class="absolute top-10 left-10 w-64 h-64 rounded-full bg-pastel-sky/30 filter blur-3xl"></div>
+        <div class="absolute bottom-12 right-12 w-80 h-80 rounded-full bg-pastel-periwinkle/30 filter blur-3xl"></div>
+    </div>
+
+    <!-- SINGLE GRID CONTAINER -->
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- LEFT HAND TEXT CONTENT (span 7) -->
+        <div class="lg:col-span-7 space-y-6">
+   <h1 class="lg:text-left font-sans text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight leading-tight text-slate-900">
+    <span class="text-pastel-brand block sm:inline">Kings Way School: </span>
+    <span class="text-[#9F7AEA] block sm:inline">Grounded in Faith, Built for Integrity, Driven by Excellence.</span> 
+</h1> 
+
+            <p class="text-pastel-slate text-base sm:text-lg max-w-xl mx-auto lg:mx-0 lg:text-left">
+                Operating continuously since 1995 in Makindye West, Kampala, we empower students with a balanced national curriculum, discipline, computer labs, and holistic spiritual growth.
+            </p>
+
+            <div class="relative z-20 pt-2">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center w-full">
+                    <a id="enroll-button" href="https://crestedssportal.web.app/" 
+                       class="w-full sm:w-auto px-5 py-3.5 bg-pastel-sky text-white font-bold rounded-xl hover:bg-pastel-brand transition-all shadow-lg shadow-pastel-periwinkle/50 text-center text-sm whitespace-nowrap duration-300">
+                        Enroll Child, View Grades or Upload Grades
+                    </a>
+                    <a href="#academics" class="w-full sm:w-auto px-8 py-3.5 border-2 border-slate-200 text-pastel-deep font-bold rounded-xl bg-[#D8B4FE] transition text-center text-sm">
+                        Academic Programs
+                    </a>
                 </div>
-                <h4 class="text-2xl sm:text-3xl font-serif font-black text-brand-navy">80+</h4>
-                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mt-1">Qualified Educators</p>
-            </div>
-            <!-- Counter 3 -->
-            <div class="bg-white border border-brand-borderSoft rounded-2xl p-6 text-center shadow-lg hover:-translate-y-1 transition duration-300">
-                <div class="w-10 h-10 bg-brand-skyLight text-brand-navy rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <i class="fa-solid fa-puzzle-piece text-lg"></i>
-                </div>
-                <h4 class="text-2xl sm:text-3xl font-serif font-black text-brand-navy">20+</h4>
-                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mt-1">Clubs & Activities</p>
-            </div>
-            <!-- Counter 4 -->
-            <div class="bg-white border border-brand-borderSoft rounded-2xl p-6 text-center shadow-lg hover:-translate-y-1 transition duration-300">
-                <div class="w-10 h-10 bg-brand-accentLight text-brand-accent rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <i class="fa-solid fa-graduation-cap text-lg"></i>
-                </div>
-                <h4 class="text-2xl sm:text-3xl font-serif font-black text-brand-navy">8,000+</h4>
-                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mt-1">Graduated Alumni</p>
             </div>
         </div>
-    </section>
 
-    <!-- WELCOME & CORE HERITAGE (Sleek Clean Presentation) -->
-    <section id="about" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 lg:px-6">
-            
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- RIGHT HAND FACT SHEET (span 5 - Perfectly Adjacent) -->
+        <div class="lg:col-span-5 relative">
+            <div class="bg-gradient-to-tr from-pastel-brand to-pastel-brand rounded-3xl p-1 shadow-2xl relative overflow-hidden">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
                 
-                <!-- Left Side Content (Directors Direct Message) -->
-                <div class="lg:col-span-7 space-y-6">
-                    <span class="text-brand-navy font-bold text-xs uppercase tracking-widest flex items-center gap-2">
-                        <span class="w-8 h-[2px] bg-brand-accent inline-block"></span> Welcome to Kings Way Schools
-                    </span>
-                    <h3 class="text-3xl md:text-4xl font-serif font-bold text-brand-navy leading-tight">
-                        We Invest In Whole-Person Education and Christian Values
-                    </h3>
-                    <p class="text-slate-600 text-sm md:text-base leading-relaxed">
-                        Founded in 2001 by **Mr. Frank Muramura** and **Mrs. Loy Muramura**, Kings Way Schools has spent over two decades fostering academic superiority and practical independence. Based along Entebbe Road, Kampala, we maintain a legacy where solid discipline is considered the cornerstone of lasting academic success.
-                    </p>
-                    <p class="text-slate-600 text-sm md:text-base leading-relaxed">
-                        Our administrative structure guarantees close personal monitoring, child-centered mentoring, and outstanding academic preparations. We are unconditionally committed to shaping God-fearing, academically elite, and responsible leaders equipped to change society positively.
-                    </p>
-
-                    <!-- Founders Message Signoff block -->
-                    <div class="bg-brand-skyLight rounded-xl p-5 border-l-4 border-brand-navy flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                        <div>
-                            <h4 class="font-serif font-bold text-brand-navy">Mr. Frank & Mrs. Loy Muramura</h4>
-                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Founding Directors</p>
-                        </div>
-                        <span class="text-brand-accent font-serif italic text-sm">"Education for Development"</span>
+                <div class="bg-white rounded-3xl p-6 md:p-8 space-y-6 relative z-10">
+                    <div class="flex items-center justify-between border-b border-pastel-glacier pb-4">
+                        <span class="text-xs text-pastel-deep font-bold bg-pastel-ice px-2.5 py-1 rounded-full uppercase">Quick Facts</span>
                     </div>
+
+                    <ul class="space-y-4">
+                        <li class="flex items-start space-x-3.5">
+                            <div class="w-8 h-8 rounded-lg bg-pastel-ice flex items-center justify-center text-pastel-brand shrink-0">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-[#C084FC] text-md">Mixed Day & Boarding</h4>
+                                <p class="text-sm text-pastel-slate">Fully integrated campus welcoming both boys and girls across East Africa.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start space-x-3.5">
+                            <div class="w-8 h-8 rounded-lg bg-pastel-ice flex items-center justify-center text-pastel-brand shrink-0">
+                                <i class="fa-solid fa-flask"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-[#C084FC] text-md">Science and IT Centers</h4>
+                                <p class="text-sm text-pastel-slate">Hands-on practice in modern computing suites and science laboratories.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start space-x-3.5">
+                            <div class="w-8 h-8 rounded-lg bg-pastel-ice flex items-center justify-center text-pastel-brand shrink-0">
+                                <i class="fa-solid fa-person-praying"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-[#C084FC] text-md">Moral & Spiritual Anchor</h4>
+                                <p class="text-sm text-pastel-slate">An active chapel community welcoming all denominations.</p>
+                            </div>
+                        </li>
+                    </ul>           
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-                <!-- Right Side Content (Core Triad Vision, Mission, Motto) -->
-                <div class="lg:col-span-5 space-y-6">
-                    
-                    <!-- Motto Card -->
-                    <div class="bg-brand-skyLight border border-brand-borderSoft rounded-2xl p-6 hover:shadow-md transition">
-                        <div class="flex items-center space-x-3 mb-3">
-                            <div class="w-10 h-10 bg-brand-navy text-white rounded-xl flex items-center justify-center">
-                                <i class="fa-solid fa-award text-md"></i>
-                            </div>
-                            <h4 class="text-lg font-bold text-brand-navy">Our Motto</h4>
-                        </div>
-                        <p class="text-slate-600 text-sm font-semibold italic">
-                            "Education for Development."
-                        </p>
-                    </div>
+    <!-- About Us Section -->
+    <section id="about" class="py-20 bg-white border-b border-pastel-glacier scroll-mt-32">
+       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    
+    <!-- STANDALONE TITLES -->
+    <div class="mb-12 text-center lg:text-left">
+        <h1 class="text-pastel-brand font-bold text-3xl mb-2 text-center">
+            About Us
+        </h1>
+        <h2 class="font-sans text-2xl sm:text-3xl font-bold text-[#C084FC] text-center">
+            Welcome to Kings Way School Kampala
+        </h2>
+    </div>
 
-                    <!-- Vision Card -->
-                    <div class="bg-brand-skyLight border border-brand-borderSoft rounded-2xl p-6 hover:shadow-md transition">
-                        <div class="flex items-center space-x-3 mb-3">
-                            <div class="w-10 h-10 bg-brand-navy text-white rounded-xl flex items-center justify-center">
-                                <i class="fa-solid fa-eye text-md"></i>
-                            </div>
-                            <h4 class="text-lg font-bold text-brand-navy">Our Vision</h4>
-                        </div>
-                        <p class="text-slate-600 text-sm">
-                            To be the premier center of discipline and academic excellence in the East African region.
-                        </p>
-                    </div>
-
-                    <!-- Mission Card -->
-                    <div class="bg-brand-skyLight border border-brand-borderSoft rounded-2xl p-6 hover:shadow-md transition">
-                        <div class="flex items-center space-x-3 mb-3">
-                            <div class="w-10 h-10 bg-brand-navy text-white rounded-xl flex items-center justify-center">
-                                <i class="fa-solid fa-bullseye text-md"></i>
-                            </div>
-                            <h4 class="text-lg font-bold text-brand-navy">Our Mission</h4>
-                        </div>
-                        <p class="text-slate-600 text-sm">
-                            To provide high-quality, child-centered education that equips learners with robust skills to enhance personal and national development.
-                        </p>
-                    </div>
-
-                </div>
-
+    <!-- GRID FOR CARD AND PARAGRAPHS -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- Principal Welcome Card -->
+    <div class="lg:col-span-5">
+    <div class="relative">
+        <div class="absolute inset-0 bg-pastel-glacier rounded-r-xl"></div>
+        
+       <div class="relative p-8 border-l-4 border-pastel-brand bg-pastel-ice rounded-r-xl shadow-xl space-y-6">
+            
+            <!-- Card content -->
+            <div class="flex items-center space-x-4">
+               
+               
             </div>
 
+            <p class="text-lg text-pastel-deep leading-relaxed font-medium italic">
+            "Today, with over 95% of our A-Level graduates successfully securing university placement annually, 
+            Crested has firmly established itself as a premier destination for academic success."
+            </p>            
+
+            <div class="mt-4">
+            <p class="text-pastel-brand italic font-semibold">
+                — Charles Ibingira
+            </p>
+            <p class="text-base text-[#C084FC] uppercase font-semibold mt-1">
+                Director
+            </p>
         </div>
+        </div>
+    </div>
+</div>
+   
+        <!-- Paragraphs Section -->
+        <div class="lg:col-span-7 space-y-6">
+            <p class="text-pastel-slate">
+                Established in 1995 and fully registered with the Ministry of Education and Sports, Kings Way School serves as a premier examination center for both ‘O’ and ‘A’ Level candidates. Built upon a robust scientific foundation, the majority of our graduates successfully pursue competitive, science-based degrees—including Engineering, Medicine, and Computer Science—on both government and private sponsorship.
+            </p>
+
+            <p class="text-pastel-slate">
+                Situated away from the city's hustle and bustle, our campus provides a serene, dust-free learning environment. The school’s iconic main building stands prominently on the hillside, offering breathtaking views of Lake Victoria. Having celebrated 28 years of excellence, we have cultivated a unique culture defined by responsible mentorship, the enforcement of disciplined habits, and a commitment to always going the extra mile.
+            </p>
+
+            <p class="text-pastel-slate">
+                By 2012, Crested was ranked among the top 19 best A-Level performing schools nationwide—a significant milestone in our history. 
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div class="flex items-center space-x-2 text-pastel-deep font-semibold">
+                    <i class="fa-solid fa-circle-check text-pastel-brand"></i>
+                    <span class="text-sm">Inter-denominational Chapel</span>
+                </div>
+                <div class="flex items-center space-x-2 text-pastel-deep font-semibold">
+                    <i class="fa-solid fa-circle-check text-pastel-brand"></i>
+                    <span class="text-sm">Comprehensive Guidance & Counseling</span>
+                </div>
+                <div class="flex items-center space-x-2 text-pastel-deep font-semibold">
+                    <i class="fa-solid fa-circle-check text-pastel-brand"></i>
+                    <span class="text-sm">Secure Day & Boarding Facilities</span>
+                </div>
+                <div class="flex items-center space-x-2 text-pastel-deep font-semibold">
+                    <i class="fa-solid fa-circle-check text-pastel-brand"></i>
+                    <span class="text-sm">Modern ICT Coding & Literacy Labs</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Vision, Mission & Values Panel -->
+             <div class="max-w-6xl mx-auto px-4 mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
+    <!-- Vision Card: Added max-w-sm -->
+    <div class="bg-pastel-ice border border-pastel-sky rounded-2xl p-6 space-y-4 hover:shadow-md transition w-full max-w-sm">
+        <div class="w-12 h-12 rounded-xl bg-pastel-sky flex items-center justify-center text-white">
+            <i class="fa-solid fa-eye text-xl"></i>
+        </div>
+        <h3 class="font-sans text-xl font-bold text-[#c084fc]">Our Vision</h3>
+        <p class="text-sm text-pastel-slate">
+            To be a regional Center of Excellence in the provision of both O Level and A Level Education.
+        </p>
+    </div>
+
+    <!-- Mission Card: Added max-w-sm -->
+    <div class="bg-pastel-ice border border-pastel-sky rounded-2xl p-6 space-y-4 hover:shadow-md transition w-full max-w-sm">
+        <div class="w-12 h-12 rounded-xl bg-pastel-sky flex items-center justify-center text-white">
+            <i class="fa-solid fa-bullseye text-xl"></i>
+        </div>
+        <h3 class="font-sans text-xl font-bold text-[#c084fc]">Our Mission</h3>
+        <p class="text-sm text-pastel-slate">
+            To develop self-reliant, God-fearing, academically excellent, and disciplined citizens who are ready to lead and serve humanity diligently.
+        </p>
+    </div>
+
+    <!-- Core Values Card: Added max-w-sm -->
+    <div class="bg-pastel-ice border border-pastel-sky rounded-2xl p-6 space-y-4 hover:shadow-md transition w-full max-w-sm">
+        <div class="w-12 h-12 rounded-xl bg-pastel-sky flex items-center justify-center text-white">
+            <i class="fa-solid fa-star text-xl"></i>
+        </div>
+        <h3 class="font-sans text-xl font-bold text-[#c084fc]">Our Values</h3>
+        <p class="text-sm text-pastel-slate">
+            Continuous academic excellence, strict moral discipline, teamwork, accountability, spiritual nourishment, and dedicated leadership.
+        </p>
+    </div>
+</div>
+</div>
     </section>
 
-    <!-- ACADEMICS & CURRICULUM OVERVIEW (Structured identical to Crested) -->
-    <section id="academics" class="py-20 bg-brand-skyLight border-t border-b border-brand-borderSoft">
-        <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <!-- Academics Section -->
+    <section id="academics" class="py-20 bg-pastel-ice scroll-mt-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
-                <span class="text-brand-navy font-bold text-xs uppercase tracking-widest block"><i class="fa-solid fa-graduation-cap text-brand-accent"></i> Curriculum Overview</span>
-                <h3 class="text-3xl font-serif font-bold text-brand-navy">Structured Educational Pathways</h3>
-                <p class="text-slate-500 text-sm">Providing consistent guidance and standard-setting preparation across every development milestone.</p>
+            <div class="text-center max-w-3xl mx-auto mb-8 space-y-4">
+                        <h1 class="text-pastel-brand font-bold text-3xl mb-2 text-center">
+                            Academic Programs
+                        </h1>
+                <h2 class="font-sans text-3xl sm:text-2xl font-bold text-[#c084fc]">Comprehensive Educational Pathways</h2>
+                <p class="text-pastel-slate text-sm sm:text-base">
+                    Kings Way School delivers outstanding instruction and preparation for both national examinations and modern-world challenges.
+                </p>
             </div>
 
-            <!-- Subject/Department Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Card 1: Science -->
-                <div class="bg-white rounded-2xl p-6 border border-brand-borderSoft shadow-sm hover:shadow-md transition-all duration-300">
-                    <div class="w-12 h-12 bg-brand-skyLight text-brand-navy rounded-xl flex items-center justify-center mb-5 border border-brand-sky/15">
-                        <i class="fa-solid fa-microscope text-xl"></i>
-                    </div>
-                    <h4 class="text-lg font-bold text-brand-navy mb-2">Sciences</h4>
-                    <p class="text-slate-500 text-xs md:text-sm leading-relaxed">
-                        Comprehensive studies in Physics, Chemistry, Biology, and Agricultural Sciences. Backed by fully functional and secure on-campus experimental research labs.
-                    </p>
-                </div>
-
-                <!-- Card 2: Mathematics -->
-                <div class="bg-white rounded-2xl p-6 border border-brand-borderSoft shadow-sm hover:shadow-md transition-all duration-300">
-                    <div class="w-12 h-12 bg-brand-skyLight text-brand-navy rounded-xl flex items-center justify-center mb-5 border border-brand-sky/15">
-                        <i class="fa-solid fa-calculator text-xl"></i>
-                    </div>
-                    <h4 class="text-lg font-bold text-brand-navy mb-2">Mathematics</h4>
-                    <p class="text-slate-500 text-xs md:text-sm leading-relaxed">
-                        Fostering high computational competence, logical structure, and standard statistical models across our Nursery, Primary, and High school syllabi.
-                    </p>
-                </div>
-
-                <!-- Card 3: Computer Science & ICT -->
-                <div class="bg-white rounded-2xl p-6 border border-brand-borderSoft shadow-sm hover:shadow-md transition-all duration-300">
-                    <div class="w-12 h-12 bg-brand-skyLight text-brand-navy rounded-xl flex items-center justify-center mb-5 border border-brand-sky/15">
-                        <i class="fa-solid fa-laptop-code text-xl"></i>
-                    </div>
-                    <h4 class="text-lg font-bold text-brand-navy mb-2">Computer Science & ICT</h4>
-                    <p class="text-slate-500 text-xs md:text-sm leading-relaxed">
-                        Supervised digital literacy labs. Ensuring that every single candidate acquires modern keyboarding, computing systems logic, and coding foundations.
-                    </p>
-                </div>
-
-                <!-- Card 4: Fine Arts & Design -->
-                <div class="bg-white rounded-2xl p-6 border border-brand-borderSoft shadow-sm hover:shadow-md transition-all duration-300">
-                    <div class="w-12 h-12 bg-brand-skyLight text-brand-navy rounded-xl flex items-center justify-center mb-5 border border-brand-sky/15">
-                        <i class="fa-solid fa-palette text-xl"></i>
-                    </div>
-                    <h4 class="text-lg font-bold text-brand-navy mb-2">Fine Arts & Crafts</h4>
-                    <p class="text-slate-500 text-xs md:text-sm leading-relaxed">
-                        Cultivating artistic perspectives, craft design, pattern creation, and canvas illustration to unlock student visual self-expression and commercial design skills.
-                    </p>
-                </div>
-
-                <!-- Card 5: Humanities -->
-                <div class="bg-white rounded-2xl p-6 border border-brand-borderSoft shadow-sm hover:shadow-md transition-all duration-300">
-                    <div class="w-12 h-12 bg-brand-skyLight text-brand-navy rounded-xl flex items-center justify-center mb-5 border border-brand-sky/15">
-                        <i class="fa-solid fa-earth-africa text-xl"></i>
-                    </div>
-                    <h4 class="text-lg font-bold text-brand-navy mb-2">Humanities</h4>
-                    <p class="text-slate-500 text-xs md:text-sm leading-relaxed">
-                        Providing deep structural guidance in Geography, History, Social Studies, Divinity, and Global Governance formats for complete social consciousness.
-                    </p>
-                </div>
-
-                <!-- Card 6: Languages -->
-                <div class="bg-white rounded-2xl p-6 border border-brand-borderSoft shadow-sm hover:shadow-md transition-all duration-300">
-                    <div class="w-12 h-12 bg-brand-skyLight text-brand-navy rounded-xl flex items-center justify-center mb-5 border border-brand-sky/15">
-                        <i class="fa-solid fa-language text-xl"></i>
-                    </div>
-                    <h4 class="text-lg font-bold text-brand-navy mb-2">Languages</h4>
-                    <p class="text-slate-500 text-xs md:text-sm leading-relaxed">
-                        Mastery of English literature, speech articulation, and selective secondary languages to facilitate fluid global expression and active literacy.
-                    </p>
-                </div>
+            <!-- Interactive Tab Buttons -->
+            <div class="flex flex-wrap justify-center gap-2 mb-10">
+                <button onclick="switchAcademicTab('oLevel')" id="btn-oLevel" class="academic-tab-btn active px-6 py-3 rounded-xl text-sm font-bold tracking-wider uppercase transition-all shadow-xs bg-pastel-sky text-white">
+                    O Level Curriculum
+                </button>
+                <button onclick="switchAcademicTab('aLevelSciences')" id="btn-aLevelSciences" class="academic-tab-btn px-6 py-3 rounded-xl text-sm font-bold tracking-wider uppercase transition-all shadow-xs bg-white text-pastel-deep hover:bg-pastel-glacier">
+                    A Level Sciences
+                </button>
+                <button onclick="switchAcademicTab('aLevelArts')" id="btn-aLevelArts" class="academic-tab-btn px-6 py-3 rounded-xl text-sm font-bold tracking-wider uppercase transition-all shadow-xs bg-white text-pastel-deep hover:bg-pastel-glacier">
+                    A Level Arts & Humanities
+                </button>
+                
             </div>
 
-        </div>
-    </section>
-
-    <!-- SCHOOL SEGMENTS SECTION -->
-    <section id="campuses" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 lg:px-6">
-            
-            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
-                <span class="text-brand-navy font-bold text-xs uppercase tracking-widest block"><i class="fa-solid fa-school text-brand-accent"></i> Academic Sections</span>
-                <h3 class="text-3xl font-serif font-bold text-brand-navy">Explore Our Specialized Campuses</h3>
-                <p class="text-slate-500 text-sm">Providing customized study segments mapped to every student's continuous developmental steps.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Campus 1: Nursery -->
-                <div class="bg-brand-skyLight border border-brand-borderSoft rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between">
-                    <div>
-                        <div class="h-48 relative bg-brand-navy overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform hover:scale-105 duration-300" style="background-image: url('https://images.unsplash.com/photo-1576489913409-798556f2d593?q=80&w=500&auto=format&fit=crop');"></div>
-                            <span class="absolute top-4 right-4 bg-brand-accent text-brand-navy text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full">Ages 2.5 - 6 Yrs</span>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            <h4 class="text-lg font-bold text-brand-navy">Nursery & Pre-Primary</h4>
-                            <p class="text-xs text-slate-500 leading-relaxed">
-                                Introducing little learners through phonetics, social integrations, play-based computational patterns, and beautiful child-friendly settings.
-                            </p>
-                            <ul class="text-xs text-slate-600 space-y-2 pt-2">
-                                <li><i class="fa-solid fa-check text-brand-sky mr-2"></i> Dedicated sensory playparks</li>
-                                <li><i class="fa-solid fa-check text-brand-sky mr-2"></i> Loving, certified childminders</li>
-                                <li><i class="fa-solid fa-check text-brand-sky mr-2"></i> Safe and sound-proof spaces</li>
+            <div class="-mt-9 mb-9 text-center">
+   
+    <p class="font-extrabold text-slate-900 text-[14px] italic">
+        Click on any of above buttons to view additional information.
+    </p>
+</div>
+ 
+            <div id="tab-oLevel" class="academic-tab-content space-y-8">
+                <div class="bg-white rounded-3xl p-6 md:p-10 border border-pastel-sky/30 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <h3 class="font-sans text-2xl font-bold text-[#c084fc]">O Level (S.1 - S.4)</h3>
+                        <p class="text-sm text-pastel-slate">
+                            At O-Level, we nurture robust scientific inquiry, technical skills, and cultural awareness. Following the revised lower secondary UNEB curriculum, we emphasize active-learning methodologies.
+                        </p>
+                        <div class="bg-pastel-ice p-4 rounded-2xl border border-pastel-sky space-y-2">
+                            <span class="text-xs uppercase font-bold text-pastel-deep">Key Mandatory Modules</span>
+                            <ul class="text-xs space-y-1.5 text-pastel-slate font-medium">
+                                <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Mathematics & General Science</li>
+                                <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>English Language & Literature</li>
+                                <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>ICT and Computer Science Studies</li>
+                                <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Agriculture & Life Skills</li>
                             </ul>
                         </div>
                     </div>
-                    <div class="p-6 border-t border-brand-borderSoft">
-                        <a href="#admissions" @click.prevent="scrollToSection('admissions')" class="text-xs font-bold text-brand-navy hover:text-brand-sky flex items-center justify-between">
-                            <span>Register Interest</span> <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Campus 2: Primary -->
-                <div class="bg-brand-skyLight border border-brand-borderSoft rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between">
-                    <div>
-                        <div class="h-48 relative bg-brand-navy overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform hover:scale-105 duration-300" style="background-image: url('https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=500&auto=format&fit=crop');"></div>
-                            <span class="absolute top-4 right-4 bg-brand-navy text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full">P.1 - P.7 Candidate</span>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-4 bg-pastel-glacier/40 rounded-xl space-y-2">
+                            <i class="fa-solid fa-laptop-code text-pastel-deep text-xl"></i>
+                            <h4 class="font-bold text-sm text-[#c084fc]">Computer Science</h4>
+                            <p class="text-xs text-pastel-slate">Hands-on practice with programming languages, hardware troubleshooting, and typing masteries.</p>
                         </div>
-                        <div class="p-6 space-y-4">
-                            <h4 class="text-lg font-bold text-brand-navy">Primary School Section</h4>
-                            <p class="text-xs text-slate-500 leading-relaxed">
-                                Remarkable training mapped directly to PLE requirements. Inspiring outstanding reading habits, strong mathematical logic, and scientific thinking patterns.
-                            </p>
-                            <ul class="text-xs text-slate-600 space-y-2 pt-2">
-                                <li><i class="fa-solid fa-check text-brand-sky mr-2"></i> Elite national PLE grade averages</li>
-                                <li><i class="fa-solid fa-check text-brand-sky mr-2"></i> Structured reading & spelling bees</li>
-                                <li><i class="fa-solid fa-check text-brand-sky mr-2"></i> Clean on-campus boarding hostels</li>
-                            </ul>
+                        <div class="p-4 bg-pastel-glacier/40 rounded-xl space-y-2">
+                            <i class="fa-solid fa-flask-vial text-pastel-deep text-xl"></i>
+                            <h4 class="font-bold text-sm text-[#c084fc]">Core Sciences</h4>
+                            <p class="text-xs text-pastel-slate">In-depth laboratory research focusing on Chemistry, Physics, and Biological sciences.</p>
                         </div>
-                    </div>
-                    <div class="p-6 border-t border-brand-borderSoft">
-                        <a href="#admissions" @click.prevent="scrollToSection('admissions')" class="text-xs font-bold text-brand-navy hover:text-brand-sky flex items-center justify-between">
-                            <span>Register Interest</span> <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Campus 3: High School -->
-                <div class="bg-brand-skyLight border border-brand-borderSoft rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between">
-                    <div>
-                        <div class="h-48 relative bg-brand-navy overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform hover:scale-105 duration-300" style="background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=500&auto=format&fit=crop');"></div>
-                            <span class="absolute top-4 right-4 bg-brand-accent text-brand-navy text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full">O & A Level UNEB</span>
+                        <div class="p-4 bg-pastel-glacier/40 rounded-xl space-y-2">
+                            <i class="fa-solid fa-palette text-pastel-deep text-xl"></i>
+                            <h4 class="font-bold text-sm text-[#c084fc]">Fine Arts & Design</h4>
+                            <p class="text-xs text-pastel-slate">Nurturing creative pathways for students who plan careers in design, graphics, or crafts.</p>
                         </div>
-                        <div class="p-6 space-y-4">
-                            <h4 class="text-lg font-bold text-brand-navy">High School Campus</h4>
-                            <p class="text-xs text-slate-500 leading-relaxed">
-                                Direct pathway leading to UCE & UACE qualifications. Delivering rigorous science and arts specializations that open direct placements into elite global universities.
-                            </p>
-                            <ul class="text-xs text-slate-600 space-y-2 pt-2">
-                                <li><i class="fa-solid fa-check text-brand-sky mr-2"></i> Modern science experimental laboratories</li>
-                                <li><i class="fa-solid fa-check text-brand-sky mr-2"></i> Deeply integrated computer science tracks</li>
-                                <li><i class="fa-solid fa-check text-brand-sky mr-2"></i> Inspiring debate & agricultural clubs</li>
-                            </ul>
+                        <div class="p-4 bg-pastel-glacier/40 rounded-xl space-y-2">
+                            <i class="fa-solid fa-globe text-pastel-deep text-xl"></i>
+                            <h4 class="font-bold text-sm text-[#c084fc]">Humanities</h4>
+                            <p class="text-xs text-pastel-slate">Building civic awareness through detailed lessons in Geography, History, and Religious Studies.</p>
                         </div>
-                    </div>
-                    <div class="p-6 border-t border-brand-borderSoft">
-                        <a href="#admissions" @click.prevent="scrollToSection('admissions')" class="text-xs font-bold text-brand-navy hover:text-brand-sky flex items-center justify-between">
-                            <span>Register Interest</span> <i class="fa-solid fa-arrow-right"></i>
-                        </a>
                     </div>
                 </div>
             </div>
 
-        </div>
-    </section>
-
-    <!-- CO-CURRICULAR & TOURS SECTION (Consistent with requested Crested layout) -->
-    <section id="co-curricular" class="py-20 bg-brand-skyLight border-t border-b border-brand-borderSoft">
-        <div class="max-w-7xl mx-auto px-4 lg:px-6">
-            
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Left Details -->
-                <div class="lg:col-span-5 space-y-6">
-                    <span class="text-brand-navy font-bold text-xs uppercase tracking-widest block"><i class="fa-solid fa-puzzle-piece text-brand-accent"></i> Holistic Growth</span>
-                    <h3 class="text-3xl font-serif font-bold text-brand-navy">Talent Discovery Beyond the Classroom</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Excellence is not limited to textbook definitions. We actively prioritize visual arts, tours and excursions, team building, physical coordination, and strategic competition structures to expand critical thinking, collaboration, and high self-confidence.
-                    </p>
-
+            <div id="tab-aLevelSciences" class="academic-tab-content hidden space-y-8">
+                <div class="bg-white rounded-3xl p-6 md:p-10 border border-pastel-sky/30 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <h3 class="font-sans text-[22px] font-bold text-[#c084fc]">A Level Sciences (S.5 - S.6)</h3>
+                        <p class="text-sm text-pastel-slate">
+                            Our advanced science combinations prepare students for prestigious medical, engineering, and digital science degrees. Our alumni regularly proceed to top Ugandan universities on direct state sponsorship.
+                        </p>
+                        <div class="bg-pastel-ice p-4 rounded-2xl border border-pastel-sky">
+                            <span class="text-xs uppercase font-bold text-pastel-deep block mb-2">Available Science Combinations</span>
+                            <div class="grid grid-cols-2 gap-2 text-xs font-bold text-[#c084fc]">
+                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">PCM (Physics, Chemistry, Math)</span>
+                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">PCB (Physics, Chemistry, Biology)</span>
+                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">BCG (Biology, Chemistry, Geography)</span>
+                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">PEM (Physics, Economics, Math)</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="space-y-4">
-                        <!-- Trait 1 -->
-                        <div class="flex items-start space-x-3.5 bg-white p-4 rounded-xl border border-brand-borderSoft">
-                            <i class="fa-solid fa-music text-brand-sky text-lg mt-1"></i>
+                        <div class="flex items-start space-x-3 p-4 bg-pastel-glacier/30 rounded-xl">
+                            <div class="text-pastel-deep mt-1"><i class="fa-solid fa-vial"></i></div>
                             <div>
-                                <h4 class="font-bold text-brand-navy text-sm">Famous School Brass Band</h4>
-                                <p class="text-xs text-slate-500 mt-0.5">Instructional instrument literacy, coordination, and elite community performance parades.</p>
+                                <h4 class="font-bold text-sm text-[#c084fc]">Fully Outfitted UNEB Laboratories</h4>
+                                <p class="text-xs text-pastel-slate">Each science student conducts weekly individual practical assignments in our spacious labs.</p>
                             </div>
                         </div>
-
-                        <!-- Trait 2 -->
-                        <div class="flex items-start space-x-3.5 bg-white p-4 rounded-xl border border-brand-borderSoft">
-                            <i class="fa-solid fa-compass text-brand-sky text-lg mt-1"></i>
+                        <div class="flex items-start space-x-3 p-4 bg-pastel-glacier/30 rounded-xl">
+                            <div class="text-pastel-deep mt-1"><i class="fa-solid fa-microscope"></i></div>
                             <div>
-                                <h4 class="font-bold text-brand-navy text-sm">Educational Excursions & Trips</h4>
-                                <p class="text-xs text-slate-500 mt-0.5">Annual wildlife park explorations, industrial standard-learning excursions, and national study tours.</p>
-                            </div>
-                        </div>
-
-                        <!-- Trait 3 -->
-                        <div class="flex items-start space-x-3.5 bg-white p-4 rounded-xl border border-brand-borderSoft">
-                            <i class="fa-solid fa-volleyball text-brand-sky text-lg mt-1"></i>
-                            <div>
-                                <h4 class="font-bold text-brand-navy text-sm">Championship Sports Track</h4>
-                                <p class="text-xs text-slate-500 mt-0.5">Intense football, netball, swimming, track events, and multi-house school tournaments.</p>
+                                <h4 class="font-bold text-sm text-[#c084fc]">Weekly Practice Assessment</h4>
+                                <p class="text-xs text-pastel-slate">Ongoing practical mock exams to hone analytical speed and accuracy under pressure.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Right Photo Showcase (Sleek side-by-side presentation) -->
-                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div class="bg-white p-3 rounded-2xl border border-brand-borderSoft shadow-sm">
-                        <div class="h-64 rounded-xl overflow-hidden bg-brand-navy">
-                            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=500&auto=format&fit=crop');"></div>
+            <div id="tab-aLevelArts" class="academic-tab-content hidden space-y-8">
+                <div class="bg-white rounded-3xl p-6 md:p-10 border border-pastel-sky/30 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <h3 class="font-sans text-[22px] font-bold text-[#c084fc]">A Level Arts & Humanities</h3>
+                        <p class="text-sm text-pastel-slate">
+                            Cultivating critical thinking, rhetorical mastery, and community leadership, our arts combinations establish excellent baselines for legal, education, administrative, and artistic careers.
+                        </p>
+                        <div class="bg-pastel-ice p-4 rounded-2xl border border-pastel-sky">
+                            <span class="text-xs uppercase font-bold text-pastel-deep block mb-2">Available Arts Combinations</span>
+                            <div class="grid grid-cols-2 gap-2 text-xs font-bold text-[#c084fc]">
+                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">HEG (History, Economics, Geography)</span>
+                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">DEG (C.R.E, Economics, Geography)</span>
+                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">HED (History, Economics, C.R.E)</span>
+                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">BCA (Arts focus combo)</span>
+                            </div>
                         </div>
-                        <h4 class="font-serif font-bold text-brand-navy mt-3 text-sm">Music, Dance & Drama</h4>
-                        <p class="text-slate-400 text-[11px]">Regular inter-house performances highlighting traditional African song and poetry articulation.</p>
                     </div>
-
-                    <div class="bg-white p-3 rounded-2xl border border-brand-borderSoft shadow-sm">
-                        <div class="h-64 rounded-xl overflow-hidden bg-brand-navy">
-                            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=500&auto=format&fit=crop');"></div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3 p-4 bg-pastel-glacier/30 rounded-xl">
+                            <div class="text-pastel-deep mt-1"><i class="fa-solid fa-scale-balanced"></i></div>
+                            <div>
+                                <h4 class="font-bold text-sm text-[#c084fc]">Debate & Public Address Societies</h4>
+                                <p class="text-xs text-pastel-slate">Regular inter-class and regional school debate competitions to hone self-confidence.</p>
+                            </div>
                         </div>
-                        <h4 class="font-serif font-bold text-brand-navy mt-3 text-sm">Athletics & Track Team</h4>
-                        <p class="text-slate-400 text-[11px]">Dynamic physical training sessions held on our lush green playfields under coach supervision.</p>
+                        <div class="flex items-start space-x-3 p-4 bg-pastel-glacier/30 rounded-xl">
+                            <div class="text-pastel-deep mt-1"><i class="fa-solid fa-book-open"></i></div>
+                            <div>
+                                <h4 class="font-bold text-[#c084fc]">Well-Resourced Library and Archive</h4>
+                                <p class="text-xs text-pastel-slate">Housing standard reference texts, periodicals, and past exam papers for quick reference.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -563,439 +513,789 @@
         </div>
     </section>
 
-    <!-- INTERACTIVE PHOTO GALLERY (Beautiful elegant tabs, no dark murky overlays) -->
-    <section id="gallery" class="py-20 bg-white" x-data="{ currentTab: 'classes' }">
-        <div class="max-w-7xl mx-auto px-4 lg:px-6">
-            
-            <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
-                <span class="text-brand-navy font-bold text-xs uppercase tracking-widest block"><i class="fa-solid fa-images text-brand-accent"></i> Campus Gallery</span>
-                <h3 class="text-3xl font-serif font-bold text-brand-navy">Moments Inside Our School</h3>
-                <p class="text-slate-500 text-sm">Browse our bright, high-quality snapshots demonstrating student growth and facilities.</p>
+    <!-- Uniform Section -->
+    <section id="uniform" class="py-20 bg-white border-b border-pastel-glacier scroll-mt-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10 space-y-4">
+                <h1 class="text-pastel-brand font-bold text-4xl mb-2 text-center">
+                            Our School Uniform
+                        </h1>
+                
+                <p class="text-pastel-slate text-sm sm:text-base">
+                    Kings Way School uniform fosters equality, discipline, identity, and academic focus.
+                </p>
             </div>
 
-            <!-- Crisp Clean Category Buttons -->
-            <div class="flex flex-wrap justify-center gap-3 mb-10">
-                <button @click="currentTab = 'classes'" :class="currentTab === 'classes' ? 'bg-brand-navy text-white shadow-md border-brand-navy' : 'bg-brand-skyLight text-brand-navy hover:bg-slate-200 border-transparent'" class="text-xs font-bold tracking-wider px-5 py-3 rounded-xl uppercase transition border-2">
-                    Classrooms & Labs
-                </button>
-                <button @click="currentTab = 'facilities'" :class="currentTab === 'facilities' ? 'bg-brand-navy text-white shadow-md border-brand-navy' : 'bg-brand-skyLight text-brand-navy hover:bg-slate-200 border-transparent'" class="text-xs font-bold tracking-wider px-5 py-3 rounded-xl uppercase transition border-2">
-                    Campus Facilities
-                </button>
-                <button @click="currentTab = 'student-life'" :class="currentTab === 'student-life' ? 'bg-brand-navy text-white shadow-md border-brand-navy' : 'bg-brand-skyLight text-brand-navy hover:bg-slate-200 border-transparent'" class="text-xs font-bold tracking-wider px-5 py-3 rounded-xl uppercase transition border-2">
-                    Student Activities
-                </button>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Day Scholar Uniform -->
+                <div class="bg-pastel-ice border border-pastel-sky rounded-2xl p-6 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-pastel-brand flex items-center justify-center text-white">
+                        <i class="fa-solid fa-shirt text-xl"></i>
+                    </div>
+                    <h3 class="font-sans text-xl font-bold text-[#c084fc]">Day Scholar Dress Code</h3>
+                    <p class="text-sm text-pastel-slate">
+                        Standard smart sky blue shirts with Crested SS emblem embroidery, pleated navy blue skirts for girls, and smart trousers with official school ties and dark socks.
+                    </p>
+                    <ul class="text-xs space-y-2 text-pastel-slate font-medium">
+                        <li><i class="fa-solid fa-circle-check text-pastel-brand mr-2"></i>Official school badge on shirt pocket</li>
+                        <li><i class="fa-solid fa-circle-check text-pastel-brand mr-2"></i>Black leather shoes (completely clean)</li>
+                    </ul>
+                </div>
+
+                <!-- Boarding Scholar Uniform -->
+                <div class="bg-pastel-ice border border-pastel-sky rounded-2xl p-6 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-pastel-brand flex items-center justify-center text-white">
+                        <i class="fa-solid fa-hotel text-xl"></i>
+                    </div>
+                    <h3 class="font-sans text-xl font-bold text-[#c084fc]">Boarding Scholar Attire</h3>
+                    <p class="text-sm text-pastel-slate">
+                        Includes formal daily classroom dress wear plus dedicated evening prep wear, sunday chapel garments, and school cardigans for chilly mornings.
+                    </p>
+                    <ul class="text-xs space-y-2 text-pastel-slate font-medium">
+                        <li><i class="fa-solid fa-circle-check text-pastel-brand mr-2"></i>Official dormitory sweaters/house shirts</li>
+                        <li><i class="fa-solid fa-circle-check text-pastel-brand mr-2"></i>Structured Sunday chapel attire</li>
+                    </ul>
+                </div>
+
+                <!-- Sports & Leisure Uniform -->
+                <div class="bg-pastel-ice border border-pastel-sky rounded-2xl p-6 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-pastel-brand flex items-center justify-center text-white">
+                        <i class="fa-solid fa-volleyball text-xl"></i>
+                    </div>
+                    <h3 class="font-sans text-xl font-bold text-[#c084fc]">Games & PE Kits</h3>
+                    <p class="text-sm text-pastel-slate">
+                        High-quality, light-weight athletic t-shirts customized by house colors alongside comfortable PE shorts or tracksuits for general games and sports sessions.
+                    </p>
+                    <ul class="text-xs space-y-2 text-pastel-slate font-medium">
+                        <li><i class="fa-solid fa-circle-check text-pastel-brand mr-2"></i>Colored house sports shirts</li>
+                        <li><i class="fa-solid fa-circle-check text-pastel-brand mr-2"></i>Official school track pants</li>
+                    </ul>
+                </div>
             </div>
-
-            <!-- Active Grid Items -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Classrooms Tab -->
-                <template x-if="currentTab === 'classes'">
-                    <div class="bg-white border border-brand-borderSoft rounded-2xl overflow-hidden shadow-sm group">
-                        <div class="h-56 relative bg-brand-navy overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-105 duration-300" style="background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=500&auto=format&fit=crop');"></div>
-                        </div>
-                        <div class="p-4">
-                            <h5 class="text-sm font-bold text-brand-navy uppercase tracking-wider">Advanced Physics Experiments</h5>
-                            <p class="text-slate-400 text-xs mt-1">High school science candidates conducting standard electricity trials inside our main science lab complex.</p>
-                        </div>
-                    </div>
-                </template>
-                <template x-if="currentTab === 'classes'">
-                    <div class="bg-white border border-brand-borderSoft rounded-2xl overflow-hidden shadow-sm group">
-                        <div class="h-56 relative bg-brand-navy overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-105 duration-300" style="background-image: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=500&auto=format&fit=crop');"></div>
-                        </div>
-                        <div class="p-4">
-                            <h5 class="text-sm font-bold text-brand-navy uppercase tracking-wider">High School Research Chemistry</h5>
-                            <p class="text-slate-400 text-xs mt-1">Fully stocked science lab blocks enabling students to master practical science exams.</p>
-                        </div>
-                    </div>
-                </template>
-                <template x-if="currentTab === 'classes'">
-                    <div class="bg-white border border-brand-borderSoft rounded-2xl overflow-hidden shadow-sm group">
-                        <div class="h-56 relative bg-brand-navy overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-105 duration-300" style="background-image: url('https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=500&auto=format&fit=crop');"></div>
-                        </div>
-                        <div class="p-4">
-                            <h5 class="text-sm font-bold text-brand-navy uppercase tracking-wider">Computer Practice Session</h5>
-                            <p class="text-slate-400 text-xs mt-1">Primary candidates undergoing regular basic keyboarding and file directory navigation training.</p>
-                        </div>
-                    </div>
-                </template>
-
-                <!-- Facilities Tab -->
-                <template x-if="currentTab === 'facilities'">
-                    <div class="bg-white border border-brand-borderSoft rounded-2xl overflow-hidden shadow-sm group">
-                        <div class="h-56 relative bg-brand-navy overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-105 duration-300" style="background-image: url('https://images.unsplash.com/photo-1541829019-25f2fc60090c?q=80&w=500&auto=format&fit=crop');"></div>
-                        </div>
-                        <div class="p-4">
-                            <h5 class="text-sm font-bold text-brand-navy uppercase tracking-wider">Clean Well-Ventilated Hostels</h5>
-                            <p class="text-slate-400 text-xs mt-1">Highly safe and hygienic boarding halls for residential boys and girls under professional matrons.</p>
-                        </div>
-                    </div>
-                </template>
-                <template x-if="currentTab === 'facilities'">
-                    <div class="bg-white border border-brand-borderSoft rounded-2xl overflow-hidden shadow-sm group">
-                        <div class="h-56 relative bg-brand-navy overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-105 duration-300" style="background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=500&auto=format&fit=crop');"></div>
-                        </div>
-                        <div class="p-4">
-                            <h5 class="text-sm font-bold text-brand-navy uppercase tracking-wider">Well-Stocked Reading Library</h5>
-                            <p class="text-slate-400 text-xs mt-1">Spacious study rooms housing diverse UNEB reference materials, novels, and daily newspapers.</p>
-                        </div>
-                    </div>
-                </template>
-                <template x-if="currentTab === 'facilities'">
-                    <div class="bg-white border border-brand-borderSoft rounded-2xl overflow-hidden shadow-sm group">
-                        <div class="h-56 relative bg-brand-navy overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-105 duration-300" style="background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=500&auto=format&fit=crop');"></div>
-                        </div>
-                        <div class="p-4">
-                            <h5 class="text-sm font-bold text-brand-navy uppercase tracking-wider">Safe Nursery Playcourts</h5>
-                            <p class="text-slate-400 text-xs mt-1">Specialized sensory slides and safety swings reserved for our preschool segment.</p>
-                        </div>
-                    </div>
-                </template>
-
-                <!-- Student Activities Tab -->
-                <template x-if="currentTab === 'student-life'">
-                    <div class="bg-white border border-brand-borderSoft rounded-2xl overflow-hidden shadow-sm group">
-                        <div class="h-56 relative bg-brand-navy overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-105 duration-300" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=500&auto=format&fit=crop');"></div>
-                        </div>
-                        <div class="p-4">
-                            <h5 class="text-sm font-bold text-brand-navy uppercase tracking-wider">National Brass Band Parades</h5>
-                            <p class="text-slate-400 text-xs mt-1">Our highly acclaimed student brass band performing during official national and school holidays.</p>
-                        </div>
-                    </div>
-                </template>
-                <template x-if="currentTab === 'student-life'">
-                    <div class="bg-white border border-brand-borderSoft rounded-2xl overflow-hidden shadow-sm group">
-                        <div class="h-56 relative bg-brand-navy overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-105 duration-300" style="background-image: url('https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=500&auto=format&fit=crop');"></div>
-                        </div>
-                        <div class="p-4">
-                            <h5 class="text-sm font-bold text-brand-navy uppercase tracking-wider">Annual Inter-House Sports</h5>
-                            <p class="text-slate-400 text-xs mt-1">Intense competitive track racing held annually to select talent for municipal championships.</p>
-                        </div>
-                    </div>
-                </template>
-                <template x-if="currentTab === 'student-life'">
-                    <div class="bg-white border border-brand-borderSoft rounded-2xl overflow-hidden shadow-sm group">
-                        <div class="h-56 relative bg-brand-navy overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-105 duration-300" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=500&auto=format&fit=crop');"></div>
-                        </div>
-                        <div class="p-4">
-                            <h5 class="text-sm font-bold text-brand-navy uppercase tracking-wider">Youth Leadership & Debating Club</h5>
-                            <p class="text-slate-400 text-xs mt-1">Empowering students to articulate arguments and address global challenges constructively.</p>
-                        </div>
-                    </div>
-                </template>
-            </div>
-
         </div>
     </section>
 
-    <!-- ADMISSIONS INQUIRIES SYSTEM -->
-    <section id="admissions" class="py-20 bg-brand-skyLight border-t border-b border-brand-borderSoft">
-        <div class="max-w-7xl mx-auto px-4 lg:px-6">
-            
-            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
-                <span class="text-brand-navy font-bold text-xs uppercase tracking-widest block"><i class="fa-solid fa-file-signature text-brand-accent"></i> Enrollment Portal</span>
-                <h3 class="text-3xl font-serif font-bold text-brand-navy">Admissions & Enquiries</h3>
-                <p class="text-slate-500 text-sm">Follow our simple admissions steps below to book a student placement interview on-campus.</p>
+    <!-- School Calendar Section -->
+   <section id="calendar" class="pt-10 pb-20 bg-pastel-ice scroll-mt-32">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-3">
+            <h2 class="text-4xl font-extrabold text-pastel-brand mb-2 mt-12">School Calendar</h2>
+            <p class="text-pastel-slate max-w-2xl mx-auto">Stay up to date with Kings Way School's academic terms, events, and key milestones.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Term 1 -->
+            <div class="bg-white p-8 rounded-[2rem] border border-pastel-sky/30 shadow-sm hover:shadow-md transition">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-pastel-glacier text-pastel-brand rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-calendar-days text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-pastel-navy leading-tight">Term One</h3>
+                        <span class="text-xs font-bold text-pastel-brand uppercase tracking-wider">Feb - May 2026</span>
+                    </div>
+                </div>
+                <ul class="space-y-4 text-sm text-pastel-slate">
+                    <li class="flex justify-between border-b border-pastel-glacier pb-2"><span>Opening Date</span><span class="font-bold text-pastel-navy">Feb 10th</span></li>
+                    <li class="flex justify-between border-b border-pastel-glacier pb-2"><span>Closing Date</span><span class="font-bold text-pastel-navy">May 1st</span></li>
+                    <li class="flex justify-between text-pastel-deep bg-pastel-glacier/50 p-2 rounded"><span>Term Holiday</span><span class="font-bold">May 2nd - May 24th</span></li>
+                </ul>
             </div>
 
+            <!-- Term 2 -->
+            <div class="bg-white p-8 rounded-[2rem] border border-pastel-sky/30 shadow-sm hover:shadow-md transition">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-pastel-glacier text-pastel-brand rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-calendar-days text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-pastel-navy leading-tight">Term Two</h3>
+                        <span class="text-xs font-bold text-pastel-brand uppercase tracking-wider">May - August 2026</span>
+                    </div>
+                </div>
+                <ul class="space-y-4 text-sm text-pastel-slate">
+                    <li class="flex justify-between border-b border-pastel-glacier pb-2"><span>Opening Date</span><span class="font-bold text-pastel-navy">May 25th</span></li>
+                    <li class="flex justify-between border-b border-pastel-glacier pb-2"><span>Closing Date</span><span class="font-bold text-pastel-navy">Aug 21st</span></li>
+                    <li class="flex justify-between text-pastel-deep bg-pastel-glacier/50 p-2 rounded"><span>Mid-Term Break</span><span class="font-bold">Aug 22nd - Sept 13th</span></li>
+                </ul>
+            </div>
+
+            <!-- Term 3 -->
+            <div class="bg-white p-8 rounded-[2rem] border border-pastel-sky/30 shadow-sm hover:shadow-md transition">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-pastel-glacier text-pastel-brand rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-calendar-days text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-pastel-navy leading-tight">Term Three</h3>
+                        <span class="text-xs font-bold text-pastel-brand uppercase tracking-wider">Sept - Dec 2026</span>
+                    </div>
+                </div>
+                <ul class="space-y-4 text-sm text-pastel-slate">
+                    <li class="flex justify-between border-b border-pastel-glacier pb-2"><span>Opening Date</span><span class="font-bold text-pastel-navy">Sept 14th</span></li>
+                    <li class="flex justify-between border-b border-pastel-glacier pb-2"><span>Closing Date</span><span class="font-bold text-pastel-navy">Dec 4th</span></li>
+                    <li class="flex justify-between text-pastel-deep bg-pastel-glacier/50 p-2 rounded"><span>Term Holiday</span><span class="font-bold">Dec 5th, 2026 - Jan 31st, 2027</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-6 text-center">
+            <p class="font-bold text-pastel-deep text-sm italic">* Dates are subject to change by the Ministry of Education.</p>
+        </div>
+
+        <!-- Portal Call-to-Action -->
+      <div class="mt-1 bg-sky-50 rounded-[2.5rem] border border-sky-100 p-8 md:p-12 text-center relative overflow-hidden">
+            <div class="relative z-10">
+                <h3 class="text-2xl md:text-3xl font-extrabold text-[#C084FC] mt-1 mb-2">Stay Ahead with the School Portal</h3>
+                <p class="text-slate-600 text-lg leading-relaxed mb-8 max-w-4xl mx-auto text-left">
+                    While this public calendar provides general term dates, the <span class="text-sky-600 font-bold">Broadcast News</span> feature inside the School Portal is our primary channel for urgent updates, school-wide announcements, and official policy changes delivered directly to your registered email address.
+                </p>
+                
+                <div class="inline-block bg-pastel-glacier p-6 rounded-2xl mb-8 shadow-sm">
+    <p class="font-extrabold text-slate-900 text-base mb-4 font-medium">
+        Registration is simple: just use a valid email address and choose a secure password.
+    </p>
+    <a href="https://ecollegeportal.web.app/" class="inline-block bg-pastel-brand text-white font-extrabold px-10 py-4 rounded-xl transition-all transform hover:scale-105 shadow-md uppercase tracking-wider">
+        Create Account
+    </a>
+</div>
+                 
+                <p class="text-slate-500 text-base">
+                    Already have an account? <a href="https://ecollegeportal.web.app/" class="text-sky-600 font-bold hover:underline">Log in here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+    <!-- Our Staff Section -->
+   <section id="staff" class="py-20 bg-white scroll-mt-32">
+     <div class="mb-12 text-center lg:text-left">
+        <h1 class="text-pastel-brand font-bold text-3xl mb-2 text-center">
+            Our Staff
+        </h1>        
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="block overflow-visible">
+            <!-- Sidebar / Image Container using Crested colors -->
+            <div class="float-left mr-8 mb-4 w-48 md:w-64 lg:w-80 rounded-2xl overflow-hidden shadow-xl ">
+                <div class="relative w-full aspect-square rounded-2xl overflow-hidden border-4 border-white bg-pastel-glacier flex items-center justify-center">
+                    <!-- Placeholder for Principal's Photo -->
+                    <img src="images/Principal_Lydia.jpg" alt="Lydia Ibingira Kabandize" class="w-full h-full object-cover block">
+                </div>
+                <div class="bg-[#E9D5FF] p-4 text-center border-t-4 border-pastel-periwinkle/30">
+                    <h4 class="text-lg font-bold text-pastel-deep">Lydia Ibingira Kabandize</h4>
+                    <p class="text-[#9333EA] text-base font-bold uppercase tracking-wide">Principal</p>
+                 </div>
+            </div>
+
+            <!-- Content Container -->
+            <div class="text-slate-700 leading-relaxed">
+                <p class="text-base md:text-lg mb-4">Welcome to the Kings Way School website,</p>
+
+                <p class="text-base md:text-base mb-4">
+                    The purpose of this platform is to provide parents, students and the community with easy access to a wealth of information on our school programmes and activities. As a school, our primary goal is to mould God fearing, academically excellent and responsible leaders. For more than 28 years, we have and are still unconditionally committed to providing the best to our students. Our staff always focuses on developing a holistic personality with the right knowledge ready to take on the challenges head on once they step out of the gates of the school. We believe that education is a lifelong process which creates an understanding of moral and ethical values to guide one’s life in a right path.
+                </p>
+
+                <p class="text-base md:text-base mb-4">
+                    We know that God gives every bird a worm but He does not throw it into the nest; therefore we encourage our students to focus on the future, set high and achievable goals/standards, take personal responsiblity, avoid being manipulated by other people or events and live by good deeds and actions.
+                </p>
+
+                <div class="mt-4">
+                    <p class="text-base md:text-base text-slate-900">You are welcome to the family.</p>
+                    <p class="text-base md:text-base font-bold text-pastel-deep">Lydia Ibingira Kabandize</p>
+                    <p class="text-[#9333EA] text-[16px] md:text-base font-bold uppercase">Principal</p>
+                </div>
+            </div>
+            <div class="clear-both"></div>
+        </div>
+    </div>
+
+    <!-- Charles Ibingira -->
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 py-7">    
+    <div class="block overflow-visible">
+        <!-- Sidebar / Image Container using Crested colors -->
+        <div class="float-left mr-8 mb-4 w-48 md:w-64 lg:w-80 rounded-2xl overflow-hidden shadow-xl ">
+            <div class="relative w-full aspect-square rounded-2xl overflow-hidden border-4 border-white bg-pastel-glacier flex items-center justify-center">
+                <!-- Placeholder for Charles Ibingira's Photo -->
+                <img src="images/CharlesIbingira.jpg" alt="Charles Ibingira" class="w-full h-full object-cover block">
+            </div>
+            <div class="bg-[#E9D5FF] p-4 text-center border-t-4 border-pastel-periwinkle/30">
+                <h4 class="text-lg font-bold text-pastel-deep">Charles Ibingira</h4>
+        <p class="text-[#9333EA] text-[16px] md:text-base font-bold uppercase">Founder | MD | Professor | BOD</p>
+             </div>
+        </div>
+
+        <!-- Content Container -->
+        <div class="text-slate-700 leading-relaxed">
+ 
+            <p class="text-base md:text-base mb-4">
+                Charles Ibingira is a distinguished surgeon, academic, and Medical Doctor (MD) that's on Kings Way School's Board Of Directors (BOD). A former Principal of the College of Health Sciences at Makerere University, he has dedicated his career to advancing medical education, research, and healthcare policy. With a profound commitment to intellectual rigor and professional integrity, Professor Ibingira has been a driving force in shaping the next generation of medical professionals in Uganda, advocating for excellence, lifelong learning, and service to humanity.
+            </p>
+
+            <p class="text-base md:text-base mb-4">
+                We believe that true education goes beyond the classroom; it is a lifelong pursuit of character, moral grounding, and purposeful action. We encourage our students to set ambitious goals, maintain personal accountability, and embrace the values of integrity and hard work as they prepare to lead and contribute meaningfully to society.
+            </p>
+
+         
+        </div>
+        <div class="clear-both"></div>
+    </div>
+</div>
+
+    <!-- Other Staff Section -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
+        
+        <div class="rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-pastel-glacier">
+    <div class="relative w-full aspect-square overflow-hidden">
+        <img src="images/staff_1.png" 
+             alt="Nick Zamunda" 
+             class="w-full h-full object-cover block">
+    </div> 
+    <div class="bg-[#E9D5FF] p-3 text-center border-t-4 border-pastel-periwinkle/30 min-w-0">
+        <h4 class="text-sm md:text-lg font-bold text-pastel-deep">Nick Zamunda</h4>
+        <p class="text-[#9333EA] text-xs md:text-base font-bold uppercase tracking-wide">Director of Studies</p>
+    </div>
+</div> 
+     <div class="rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-pastel-glacier flex flex-col h-full">
+    
+    <div class="relative w-full aspect-square overflow-hidden shrink-0">
+        <img src="images/Screenshot 2026-06-12 at 4.21.10 PM.png" 
+        alt="Shania Kagaba" 
+        class="w-full h-full object-cover block">
+    </div>  
+    <div class="bg-[#E9D5FF] p-3 text-center border-t-4 border-pastel-periwinkle/30 flex-grow flex flex-col justify-center">
+        <h4 class="text-sm md:text-lg font-bold text-pastel-deep">
+           Shania Kagaba
+        </h4>
+        <p class="text-[#9333EA] text-xs md:text-base font-bold uppercase tracking-wide">
+            English Teacher
+        </p>
+    </div>
+</div> 
+        <div class="rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-pastel-glacier">
+            <div class="relative w-full aspect-square overflow-hidden">
+                <img src="images/staff_2.png" 
+                alt="Jack Oyo" 
+                class="w-full h-full object-cover">
+            </div>
+            <div class="bg-[#E9D5FF] p-3 text-center border-t-4 border-pastel-periwinkle/30">
+                <h4 class="text-sm md:text-lg font-bold text-pastel-deep">Jack Oyo</h4>
+                <p class="text-[#9333EA] text-xs md:text-base font-bold uppercase tracking-wide">Math Teacher</p>
+            </div>
+        </div> 
+        <div class="rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-pastel-glacier">
+            <div class="relative w-full aspect-square overflow-hidden">
+                <img src="images/Screenshot 2026-06-11 at 3.40.03 PM.png" 
+                alt="Mya Ochieng" 
+                class="w-full h-full object-cover">
+            </div>
+            <div class="bg-[#E9D5FF] p-3 text-center border-t-4 border-pastel-periwinkle/30">
+                <h4 class="text-sm md:text-lg font-bold text-pastel-deep">Mya Ochieng</h4>
+                <p class="text-[#9333EA] text-xs md:text-base font-bold uppercase tracking-wide">Science Teacher</p>
+            </div>
+        </div> 
+    </div>
+</div> 
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
+        
+        <div class="rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-pastel-glacier">
+    <div class="relative w-full aspect-square overflow-hidden">
+        <img src="images/staff_3.png" 
+             alt="Francis Kato" 
+             class="w-full h-full object-cover block">
+    </div> 
+    <div class="bg-[#E9D5FF] p-3 text-center border-t-4 border-pastel-periwinkle/30">
+        <h4 class="text-sm md:text-lg font-bold text-pastel-deep">Francis Kato</h4>
+        <p class="text-[#9333EA] text-xs md:text-base font-bold uppercase tracking-wide">Geography Teacher</p>
+    </div>
+</div> 
+             <div class="rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-pastel-glacier">
+    <div class="relative w-full aspect-square overflow-hidden">
+        <img src="images/Screenshot 2026-06-11 at 3.53.52 PM.png" 
+             alt="Brenda Musasizi" 
+             class="w-full h-full object-cover block">
+    </div> 
+    <div class="bg-[#E9D5FF] p-3 text-center border-t-4 border-pastel-periwinkle/30">
+        <h4 class="text-sm md:text-lg font-bold text-pastel-deep">Brenda Musasizi</h4>
+        <p class="text-[#9333EA] text-xs md:text-base font-bold uppercase tracking-wide">Chemistry Teacher</p>
+    </div>
+</div> 
+        <div class="rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-pastel-glacier">
+            <div class="relative w-full aspect-square overflow-hidden">
+                <img src="images/staff_4.png" 
+                alt="Patrick Mugabe" 
+                class="w-full h-full object-cover">
+            </div>
+            <div class="bg-[#E9D5FF] p-3 text-center border-t-4 border-pastel-periwinkle/30">
+                <h4 class="text-sm md:text-lg font-bold text-pastel-deep">Patrick Mugabe</h4>
+                <p class="text-[#9333EA] text-xs md:text-base font-bold uppercase tracking-wide">C.R.E Teacher</p>
+            </div>
+        </div> 
+        <div class="rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-pastel-glacier">
+            <div class="relative w-full aspect-square overflow-hidden">
+                <img src="images/Screenshot 2026-06-11 at 3.52.11 PM.png" 
+                alt="Tanya Abani" 
+                class="w-full h-full object-cover">
+            </div>
+            <div class="bg-[#E9D5FF] p-3 text-center border-t-4 border-pastel-periwinkle/30">
+                <h4 class="text-sm md:text-lg font-bold text-pastel-deep">Tanya Abani</h4>
+                <p class="text-[#9333EA] text-xs md:text-base font-bold uppercase tracking-wide">History Teacher</p>
+            </div>
+        </div> 
+    </div>
+</div>
+</section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-pastel-ice scroll-mt-36">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-8 space-y-4">
+        <h1 class="text-pastel-brand font-bold text-3xl mb-2 text-center">
+            School Gallery
+        </h1>
+         <p class="text-slate-700 max-w-2xl mx-auto">
+            A glimpse into life at Kings Way School. Click any photo or video to expand.                
+        </p>
+            </div>
+ 
+            <!-- Gallery Grid -->
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/LydiaKabandize.jpg" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="School activities">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Ms. Lydia Kabandize giving a speech.</figcaption>
+    </figure>
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/AtwineCobrinCorry.jpg" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="Vocational training">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Atwine Cobrin Corry Head Girl – 2022/23.</figcaption>
+    </figure>
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/CrestedssStudents3.jpg" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="Students">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Kings Way students.</figcaption>
+    </figure>
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/CrestedssStudents2.jpg" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="Students">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Kings Way students.</figcaption>
+    </figure>
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/CrestedssStudents.png" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="Students">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Kings Way students.</figcaption>
+    </figure>
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/CrestedssStudents4.jpg" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="Students">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Kings Way students performing.</figcaption>
+    </figure>
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/Computerlab1.jpg" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="Computer Lab">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Kings Way students in computer lab.</figcaption>
+    </figure>
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/Computerlab2.jpg.jpg" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="Computer Lab">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Kings Way students in computer lab.</figcaption>
+    </figure>
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/CrestedSSProm.jpg" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="School Prom">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Kings Way Prom.</figcaption>
+    </figure>
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/Screenshot.png" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="School Scene">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Ms. Lydia Kabandize and friends.</figcaption>
+    </figure>
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/CrestedssStudents5.jpg" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="Students">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Kings Way student performing a play.</figcaption>
+    </figure>
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/CrestedSSstudent.png" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="Student">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Kings Way student giving a speech.</figcaption>
+    </figure>
+
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/Studentsinclass.jpg" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="Classroom">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Kings Way students in class.</figcaption>
+    </figure>
+    <figure class="text-center">
+        <img onclick="openLightbox(this.src, this.alt)" src="images/traditionaldance.png" class="w-full h-64 object-cover object-top rounded-2xl cursor-pointer hover:opacity-90 transition shadow-sm border-2 border-white" alt="Traditional Dance">
+        <figcaption class="mt-2 text-base font-medium text-slate-700">Kings Way students performing a traditional dance.</figcaption>
+    </figure>
+</div>
+    </section>
+
+    <!-- Code of Conduct Section -->
+    <section id="conduct" class="py-20 bg-white border-b border-pastel-glacier scroll-mt-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                        <h1 class="text-pastel-brand font-bold text-3xl mb-2 text-center">
+                        Code of Conduct</h1>
+                <p class="text-slate-700 text-sm sm:text-base">
+                    At Kings Way School, we strongly believe in moulding self-reliant, morally upright, and law-abiding future leaders. Click any rule to read more details.
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Rule 1 -->
+                <div class="border border-pastel-sky rounded-2xl overflow-hidden bg-pastel-ice">
+                    <button onclick="toggleConductAccordion(1)" class="w-full text-left p-5 font-bold text-[#c084fc] flex justify-between items-center bg-pastel-glacier/30 hover:bg-pastel-glacier transition">
+                        <span>1. Punctuality and Lesson Attendance</span>
+                        <i id="conductIcon1" class="fa-solid fa-chevron-down text-pastel-deep transition-transform"></i>
+                    </button>
+                    <div id="conductContent1" class="p-5 text-sm text-pastel-slate space-y-2 hidden">
+                        <p>All students must strictly report to class by 7:30 AM every morning. Attendance of early lessons, prep classes, and weekly school assemblies is compulsory. Latecomers will face disciplinary sessions.</p>
+                    </div>
+                </div>
+
+                <!-- Rule 2 -->
+                <div class="border border-pastel-sky rounded-2xl overflow-hidden bg-pastel-ice">
+                    <button onclick="toggleConductAccordion(2)" class="w-full text-left p-5 font-bold text-[#c084fc] flex justify-between items-center bg-pastel-glacier/30 hover:bg-pastel-glacier transition">
+                        <span>2. Language and Peer Interaction Policy</span>
+                        <i id="conductIcon2" class="fa-solid fa-chevron-down text-pastel-deep transition-transform"></i>
+                    </button>
+                    <div id="conductContent2" class="p-5 text-sm text-pastel-slate space-y-2 hidden">
+                        <p>English remains the strictly enforced language of instruction and general communication on campus. Peer interaction must be respectful, peaceful, and support the mixed school co-existence principles.</p>
+                    </div>
+                </div>
+
+                <!-- Rule 3 -->
+                <div class="border border-pastel-sky rounded-2xl overflow-hidden bg-pastel-ice">
+                    <button onclick="toggleConductAccordion(3)" class="w-full text-left p-5 font-bold text-[#c084fc] flex justify-between items-center bg-pastel-glacier/30 hover:bg-pastel-glacier transition">
+                        <span>3. Restricted Gadgets and Mobile Phones</span>
+                        <i id="conductIcon3" class="fa-solid fa-chevron-down text-pastel-deep transition-transform"></i>
+                    </button>
+                    <div id="conductContent3" class="p-5 text-sm text-pastel-slate space-y-2 hidden">
+                        <p>Personal smartphones, tablet devices, and mobile phones are strictly prohibited within the boarding houses and classrooms. Computer literacy training is strictly undertaken inside our supervised ICT laboratory suites.</p>
+                    </div>
+                </div>
+
+                <!-- Rule 4 -->
+                <div class="border border-pastel-sky rounded-2xl overflow-hidden bg-pastel-ice">
+                    <button onclick="toggleConductAccordion(4)" class="w-full text-left p-5 font-bold text-[#c084fc] flex justify-between items-center bg-pastel-glacier/30 hover:bg-pastel-glacier transition">
+                        <span>4. Absolute Spiritual and Moral Integrity</span>
+                        <i id="conductIcon4" class="fa-solid fa-chevron-down text-pastel-deep transition-transform"></i>
+                    </button>
+                    <div id="conductContent4" class="p-5 text-sm text-pastel-slate space-y-2 hidden">
+                        <p>We maintain zero tolerance for bullying, substance abuse, and exam malpractices. Active participation in spiritual activities and spiritual counseling services is strongly encouraged to cultivate God-fearing souls.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  
+    <!-- Contact Section -->
+   <section id="contact" class="py-20 bg-pastel-ice scroll-mt-32">
+        <h2 class="font-sans text-3xl font-bold text-pastel-brand mb-6 text-center">Contact Us</h2>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                     
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
                 
-                <!-- Guidelines (Left) -->
+                <!-- Contact Direct Address block -->
                 <div class="lg:col-span-5 space-y-6">
-                    <div class="bg-white rounded-2xl p-6 border border-brand-borderSoft shadow-sm space-y-4">
-                        <h4 class="text-sm font-bold uppercase tracking-wider text-brand-navy flex items-center gap-2">
-                            <i class="fa-solid fa-circle-question text-brand-accent"></i> Easy 3-Step Admission Guide
-                        </h4>
-                        
-                        <div class="space-y-4 text-xs text-slate-600">
-                            <div class="flex items-start gap-3">
-                                <span class="w-6 h-6 rounded-full bg-brand-navy text-white flex items-center justify-center font-bold shrink-0">1</span>
-                                <div>
-                                    <h5 class="font-bold text-brand-navy text-sm">Online Inquiry</h5>
-                                    <p class="mt-0.5">Submit parent contact details and student particulars via the adjacent form.</p>
-                                </div>
+                     
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-white border border-pastel-sky flex items-center justify-center text-pastel-brand shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
                             </div>
-                            <div class="flex items-start gap-3">
-                                <span class="w-6 h-6 rounded-full bg-brand-navy text-white flex items-center justify-center font-bold shrink-0">2</span>
-                                <div>
-                                    <h5 class="font-bold text-brand-navy text-sm">Oral & Written Assessment</h5>
-                                    <p class="mt-0.5">Our registrar will reach out to schedule a diagnostic entrance interview on campus.</p>
-                                </div>
+                            <div> 
+                                <h4 class="font-bold text-sm text-[#c084fc]">Physical Campus Address</h4>
+                                <p class="font-extrabold text-pastel-brand text-[14px]">Kirundu, Luwafu, Makindye Division West County, Kampala, Uganda.</p>
                             </div>
-                            <div class="flex items-start gap-3">
-                                <span class="w-6 h-6 rounded-full bg-brand-navy text-white flex items-center justify-center font-bold shrink-0">3</span>
-                                <div>
-                                    <h5 class="font-bold text-brand-navy text-sm">Placement Activation</h5>
-                                    <p class="mt-0.5">Pick up the complete requirements package, fee structure, and unified school uniform kit.</p>
-                                </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-white border border-pastel-sky flex items-center justify-center text-pastel-brand shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+    <h4 class="font-bold text-sm text-[#c084fc]">Email</h4>
+    <a href="mailto:crestedsecschool@gmail.com" class="block font-extrabold text-pastel-brand text-[14px] hover:underline">
+        crestedsecschool@gmail.com
+    </a>
+</div>
+                        </div>
+
+                        <div class="flex items-start space-x-3.5">
+                            <div class="w-10 h-10 rounded-xl bg-white border border-pastel-sky flex items-center justify-center text-pastel-brand shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-[#c084fc]">Phone number</h4>
+                                <p class="font-extrabold text-pastel-brand text-[14px]">+256 772 500 739</p>
                             </div>
                         </div>
                     </div>
-
-                    <div class="bg-brand-navy text-white rounded-2xl p-6 shadow-md border-b-4 border-brand-accent space-y-3">
-                        <h4 class="text-xs font-bold uppercase tracking-wider text-brand-accent flex items-center gap-2">
-                            <i class="fa-solid fa-file-circle-check"></i> Interview Requirements:
-                        </h4>
-                        <ul class="text-xs space-y-2.5 text-slate-300">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-chevron-right text-brand-accent text-[9px]"></i> Primary School: Photocopy of child's immunization card</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-chevron-right text-brand-accent text-[9px]"></i> High School: Certified copies of PLE or UCE results sheet</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-chevron-right text-brand-accent text-[9px]"></i> Academic report forms from past school (at least 2)</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-chevron-right text-brand-accent text-[9px]"></i> 4 Student passport-size photographs</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Live-acting Inquiry Form (Right) -->
-                <div class="lg:col-span-7 bg-white rounded-2xl p-8 border border-brand-borderSoft shadow-md">
-                    <h4 class="text-lg font-serif font-bold text-brand-navy mb-6 flex items-center gap-2">
-                        <i class="fa-solid fa-address-book text-brand-accent"></i> Student Placement Inquiry Form
-                    </h4>
-
-                    <form @submit.prevent="submitInquiry()" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Parent / Guardian Name *</label>
-                                <input type="text" x-model="parentName" placeholder="e.g. Mukasa Ronald" required class="w-full bg-brand-skyLight border border-brand-borderSoft rounded-lg p-3 text-xs outline-none focus:ring-2 focus:ring-brand-sky">
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Contact Phone *</label>
-                                <input type="tel" x-model="parentPhone" placeholder="e.g. +256 772 123456" required class="w-full bg-brand-skyLight border border-brand-borderSoft rounded-lg p-3 text-xs outline-none focus:ring-2 focus:ring-brand-sky">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Student Full Name *</label>
-                                <input type="text" x-model="childName" placeholder="e.g. Babirye Joy" required class="w-full bg-brand-skyLight border border-brand-borderSoft rounded-lg p-3 text-xs outline-none focus:ring-2 focus:ring-brand-sky">
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Age of Learner *</label>
-                                <input type="number" x-model="childAge" placeholder="e.g. 14" required class="w-full bg-brand-skyLight border border-brand-borderSoft rounded-lg p-3 text-xs outline-none focus:ring-2 focus:ring-brand-sky">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Target Segment *</label>
-                                <select class="w-full bg-brand-skyLight border border-brand-borderSoft rounded-lg p-3 text-xs outline-none focus:ring-2 focus:ring-brand-sky">
-                                    <option>Nursery & Pre-Primary</option>
-                                    <option>Primary School (P.1 - P.7)</option>
-                                    <option>Ordinary Level (S.1 - S.4)</option>
-                                    <option>Advanced Level (S.5 - S.6)</option>
-                                </select>
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Accommodation Style *</label>
-                                <select class="w-full bg-brand-skyLight border border-brand-borderSoft rounded-lg p-3 text-xs outline-none focus:ring-2 focus:ring-brand-sky">
-                                    <option>Boarding Resident</option>
-                                    <option>Day Scholar (Commuter)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="space-y-1">
-                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Academic History / Additional Notes</label>
-                            <textarea rows="3" placeholder="Please list previous schools attended or any special health/academic requirements..." class="w-full bg-brand-skyLight border border-brand-borderSoft rounded-lg p-3 text-xs outline-none focus:ring-2 focus:ring-brand-sky"></textarea>
-                        </div>
-
-                        <button type="submit" class="w-full bg-brand-navy hover:bg-brand-navyLight text-white font-bold text-xs p-4 rounded-lg uppercase tracking-wider transition-all duration-300 shadow-md border-b-2 border-brand-accent">
-                            Submit Registration Inquiry
-                        </button>
-                    </form>
-
-                    <!-- Real-time form feedback message (Clean design) -->
-                    <div x-show="formSuccess" x-transition class="mt-4 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-xl flex items-start gap-3">
-                        <i class="fa-solid fa-circle-check text-lg text-emerald-500 shrink-0 mt-0.5"></i>
-                        <div>
-                            <h5 class="font-bold">Inquiry Form Logged Successfully!</h5>
-                            <p class="mt-0.5">Thank you, <span class="font-bold" x-text="parentName"></span>. We have recorded your placement application for <span class="font-bold" x-text="childName"></span>. Our registrar will call you soon on <span class="font-bold" x-text="parentPhone"></span> to plan the next steps.</p>
-                        </div>
+ 
+                    <div class="p-4 bg-white rounded-2xl border border-pastel-sky text-sm text-[#c084fc] space-y-2">
+                        <p class="font-bold text-pastel-deep"><i class="fa-solid fa-clock mr-1.5"></i>Office Hours:</p>
+                        <p class="font-extrabold text-pastel-brand text-[14px]">Monday - Friday: 8:00 AM – 5:00 PM</p>
+                        <p class="font-extrabold text-pastel-brand text-[14px]">Saturdays: 9:00 AM – 1:00 PM</p>
                     </div>
                 </div>
 
-            </div>
+                <!-- Interactive Contact Form -->
+                <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-pastel-sky shadow-sm space-y-6">
+                    
+                    
+                <form id="contactForm" onsubmit="sendToWhatsApp(event)" class="space-y-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+            <label class="block text-xs font-bold text-[#c084fc] uppercase tracking-wider mb-2">Your Name *</label>
+            <input type="text" id="contactName" required class="w-full bg-pastel-ice border border-pastel-sky rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pastel-brand text-slate-700" placeholder="e.g. John Doe">
         </div>
-    </section>
+        <div>
+            <label class="block text-xs font-bold text-[#c084fc] uppercase tracking-wider mb-2">Email Address *</label>
+            <input type="email" id="contactEmail" required class="w-full bg-pastel-ice border border-pastel-sky rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pastel-brand text-slate-700" placeholder="e.g. johndoe@gmail.com">
+        </div>
+    </div> 
 
-    <!-- FAQ ACCORDION -->
-    <section class="py-20 bg-white">
-        <div class="max-w-4xl mx-auto px-4 lg:px-6">
-            
-            <div class="text-center mb-16 space-y-3">
-                <span class="text-brand-navy font-bold text-xs uppercase tracking-widest block"><i class="fa-solid fa-circle-question text-brand-accent"></i> Common Queries</span>
-                <h3 class="text-3xl font-serif font-bold text-brand-navy">Frequently Asked Questions</h3>
-                <p class="text-slate-500 text-sm">Find instant answers to the most common inquiries regarding Kings Way Schools.</p>
-            </div>
+    <div>
+        <label class="block text-xs font-bold text-[#c084fc] uppercase tracking-wider mb-2">Detailed Message *</label>
+        <textarea id="contactMessageText" rows="4" required class="w-full bg-pastel-ice border border-pastel-sky rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-pastel-brand text-slate-700" placeholder="Please provide any specific questions or requirements you want us to address."></textarea>
+    </div>
 
-            <!-- Accordion Items -->
-            <div class="space-y-4" x-data="{ currentFaq: 1 }">
-                <!-- FAQ 1 -->
-                <div class="border border-brand-borderSoft rounded-xl overflow-hidden bg-brand-skyLight">
-                    <button @click="currentFaq = (currentFaq === 1 ? 0 : 1)" class="w-full text-left p-5 font-bold text-brand-navy text-sm flex justify-between items-center outline-none">
-                        <span>Where are Kings Way Schools located? Do you have transport?</span>
-                        <i class="fa-solid text-xs" :class="currentFaq === 1 ? 'fa-minus text-brand-accent' : 'fa-plus text-brand-sky'"></i>
-                    </button>
-                    <div x-show="currentFaq === 1" x-transition class="p-5 pt-0 text-xs text-slate-600 leading-relaxed border-t border-brand-borderSoft/40">
-                        Kings Way Schools are located in Seguku along the Kampala-Entebbe Highway, opposite the Mildmay Clinic, Kampala, Uganda. We operate secure, supervised school shuttles for daily scholars along major stops along the Entebbe Road corridor.
-                    </div>
+    <div class="flex justify-center">
+        <button type="submit" class="bg-pastel-sky text-white hover:bg-pastel-brand px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-xs">
+            Send Message Via WhatsApp <i class="fa-solid fa-paper-plane ml-1.5"></i>
+        </button>
+        </div>
+        <div>
+         <p class="col-span-2 text-base text-slate-400 text-center">
+                            Clicking above will open WhatsApp with your details pre-filled.
+                    </p> 
+    </div>
+</form>
                 </div>
 
-                <!-- FAQ 2 -->
-                <div class="border border-brand-borderSoft rounded-xl overflow-hidden bg-brand-skyLight">
-                    <button @click="currentFaq = (currentFaq === 2 ? 0 : 2)" class="w-full text-left p-5 font-bold text-brand-navy text-sm flex justify-between items-center outline-none">
-                        <span>Do you offer separate boys and girls boarding systems?</span>
-                        <i class="fa-solid text-xs" :class="currentFaq === 2 ? 'fa-minus text-brand-accent' : 'fa-plus text-brand-sky'"></i>
-                    </button>
-                    <div x-show="currentFaq === 2" x-transition class="p-5 pt-0 text-xs text-slate-600 leading-relaxed border-t border-brand-borderSoft/40">
-                        Yes. We provide modern, standard, and highly secured separate boarding structures for both boys and girls across primary and secondary sectors. Our hostels are fully supervised by standard matrons and wardens who monitor hygiene, nutrition, and safety around the clock.
-                    </div>
-                </div>
-
-                <!-- FAQ 3 -->
-                <div class="border border-brand-borderSoft rounded-xl overflow-hidden bg-brand-skyLight">
-                    <button @click="currentFaq = (currentFaq === 3 ? 0 : 3)" class="w-full text-left p-5 font-bold text-brand-navy text-sm flex justify-between items-center outline-none">
-                        <span>What is the registration status and curriculum followed at Kings Way?</span>
-                        <i class="fa-solid text-xs" :class="currentFaq === 3 ? 'fa-minus text-brand-accent' : 'fa-plus text-brand-sky'"></i>
-                    </button>
-                    <div x-show="currentFaq === 3" x-transition class="p-5 pt-0 text-xs text-slate-600 leading-relaxed border-t border-brand-borderSoft/40">
-                        We are fully registered by the Ministry of Education and Sports in Uganda and follow the standard national UNEB curriculum (Center No. U0943). We supplement this with computing studies, organic agriculture, creative arts, and instrumental music theory.
-                    </div>
-                </div>
-
-                <!-- FAQ 4 -->
-                <div class="border border-brand-borderSoft rounded-xl overflow-hidden bg-brand-skyLight">
-                    <button @click="currentFaq = (currentFaq === 4 ? 0 : 4)" class="w-full text-left p-5 font-bold text-brand-navy text-sm flex justify-between items-center outline-none">
-                        <span>Are you a denomination-specific school?</span>
-                        <i class="fa-solid text-xs" :class="currentFaq === 4 ? 'fa-minus text-brand-accent' : 'fa-plus text-brand-sky'"></i>
-                    </button>
-                    <div x-show="currentFaq === 4" x-transition class="p-5 pt-0 text-xs text-slate-600 leading-relaxed border-t border-brand-borderSoft/40">
-                        Kings Way is structured upon solid Biblical Christian principles and values, which guide our daily discipline practices. However, we are inter-denominational and welcome and respect learners of all faiths and denominations.
-                    </div>
-                </div>
             </div>
 
         </div>
     </section>
 
-    <!-- COMPREHENSIVE FOOTER -->
-    <footer class="bg-brand-navy text-slate-300 pt-16 pb-8 relative overflow-hidden border-t-4 border-brand-accent">
-        <div class="max-w-7xl mx-auto px-4 lg:px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 border-b border-white/10 pb-12 mb-8">
+    <!-- Footer - Swapped dark navy for deep elegant pastel slate-blue with high contrast sky details -->
+    <footer class="bg-gradient-to-b from-pastel-glacier to-pastel-ice text-[#c084fc] py-16 border-t border-pastel-periwinkle/30">
+        
             
-            <!-- Column 1: Profile -->
-            <div class="lg:col-span-4 space-y-4">
-                <a href="#" class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-white/15 rounded-lg flex items-center justify-center font-bold text-xl border border-brand-accent">
-                        <span class="text-brand-accent font-serif">K</span>
-                    </div>
-                    <div>
-                        <h4 class="text-md font-serif font-black tracking-tight text-white">KINGS WAY</h4>
-                        <span class="text-[9px] tracking-widest font-bold text-brand-accent uppercase block">Education for Development</span>
-                    </div>
-                </a>
-                <p class="text-xs text-slate-300/80 leading-relaxed">
-                    Nurturing highly disciplined, creative, and academically excellent scholars along the Entebbe Road corridor since 2001. Built on faith and dedicated diligence.
-                </p>
-                <div class="flex items-center space-x-3 pt-2">
-                    <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-brand-sky hover:text-white flex items-center justify-center text-xs transition-all"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-brand-sky hover:text-white flex items-center justify-center text-xs transition-all"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-brand-sky hover:text-white flex items-center justify-center text-xs transition-all"><i class="fa-brands fa-instagram"></i></a>
-                </div>
-            </div>
+           
+            <!-- Bottom legal terms -->
+<div class="text-center text-slate-500 text-[10px] uppercase font-bold">                
+    <p class="mb-10">&copy; <script>document.write(new Date().getFullYear());</script> Kings Way School, Kampala. All rights reserved.</p>
+               
 
-            <!-- Column 2: Quick Links -->
-            <div class="lg:col-span-2 space-y-4">
-                <h4 class="text-xs font-bold text-brand-accent uppercase tracking-widest">Our Campuses</h4>
-                <ul class="text-xs space-y-2">
-                    <li><a href="#about" @click.prevent="scrollToSection('about')" class="hover:text-brand-accent transition">Our Legacy</a></li>
-                    <li><a href="#campuses" @click.prevent="scrollToSection('campuses')" class="hover:text-brand-accent transition">Nursery School</a></li>
-                    <li><a href="#campuses" @click.prevent="scrollToSection('campuses')" class="hover:text-brand-accent transition">Primary School</a></li>
-                    <li><a href="#campuses" @click.prevent="scrollToSection('campuses')" class="hover:text-brand-accent transition">High School</a></li>
-                </ul>
-            </div>
-
-            <!-- Column 3: Information Links -->
-            <div class="lg:col-span-2 space-y-4">
-                <h4 class="text-xs font-bold text-brand-accent uppercase tracking-widest">Information</h4>
-                <ul class="text-xs space-y-2">
-                    <li><a href="#admissions" @click.prevent="scrollToSection('admissions')" class="hover:text-brand-accent transition">Apply Online</a></li>
-                    <li><a href="#academics" @click.prevent="scrollToSection('academics')" class="hover:text-brand-accent transition">Curriculum</a></li>
-                    <li><a href="#co-curricular" @click.prevent="scrollToSection('co-curricular')" class="hover:text-brand-accent transition">Co-curricular</a></li>
-                    <li><a href="#gallery" @click.prevent="scrollToSection('gallery')" class="hover:text-brand-accent transition">Media Gallery</a></li>
-                </ul>
-            </div>
-
-            <!-- Column 4: Contact details -->
-            <div class="lg:col-span-4 space-y-4">
-                <h4 class="text-xs font-bold text-brand-accent uppercase tracking-widest">Contact Registrar</h4>
-                <div class="text-xs space-y-3">
-                    <p class="flex items-start gap-2 text-slate-300/90">
-                        <i class="fa-solid fa-map-location-dot text-brand-accent mt-0.5 text-sm shrink-0"></i>
-                        <span>Seguku, Entebbe Road, opposite Mildmay Clinic, Kampala, Uganda.</span>
-                    </p>
-                    <p class="flex items-center gap-2 text-slate-300/90">
-                        <i class="fa-solid fa-phone text-brand-accent text-sm shrink-0"></i>
-                        <span>+256 (0) 772 490120 / +256 (0) 705 331533</span>
-                    </p>
-                    <p class="flex items-center gap-2 text-slate-300/90">
-                        <i class="fa-solid fa-envelope text-brand-accent text-sm shrink-0"></i>
-                        <span>info@kingswayschools.ac.ug</span>
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 lg:px-6 text-center text-[10px] text-slate-400 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p>© 2026 Kings Way Schools Group. All rights reserved. Designed to demonstrate educational brilliance.</p>
-            <p>Motto: "Education for Development"</p>
         </div>
     </footer>
 
-    <!-- Alpine.js App Control Scripts -->
-    <script>
-        function schoolApp() {
-            return {
-                mobileMenuOpen: false,
-                formSuccess: false,
-                
-                // Form States
-                parentName: '',
-                parentPhone: '',
-                childName: '',
-                childAge: '',
+    <script> 
+         // Science Department Lightbox Logic
+function openLightbox(src, caption) {
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightbox-img');
+    
+    // 1. Set the image source
+    if (lightboxImg) {
+        lightboxImg.src = src;
+    }
 
-                // Smooth scroll engine
-                scrollToSection(id) {
-                    const target = document.getElementById(id);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                },
+    // 2. Find the text element by searching for the "Click" instruction
+    var target = null;
+    var potentialElements = lightbox.querySelectorAll('p, div, span, figcaption');
+    
+    for (var i = 0; i < potentialElements.length; i++) {
+        if (potentialElements[i].innerText.includes("Click anywhere to close")) {
+            target = potentialElements[i];
+            break;
+        }
+    }
 
-                // Simulated Inquiry submission logic
-                submitInquiry() {
-                    if (this.parentName !== '' && this.parentPhone !== '' && this.childName !== '') {
-                        this.formSuccess = true;
-                        setTimeout(() => {
-                            this.formSuccess = false;
-                            this.parentName = '';
-                            this.parentPhone = '';
-                            this.childName = '';
-                            this.childAge = '';
-                        }, 8000);
-                    }
-                }
+    // 3. Inject the caption above the instruction
+    if (target) {
+        if (caption && caption.length > 2) {
+            target.innerHTML = 
+                '<div style="color:white; font-weight:bold; font-size:1.1rem; margin-bottom:8px; line-height:1.2;">' + caption + '</div>' +
+                '<div style="font-size:0.8rem; opacity:0.7; text-transform:uppercase;">Click anywhere to close</div>';
+        } else {
+            target.innerHTML = "Click anywhere to close";
+        }
+    }
+
+    // 4. Show the lightbox
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+}
+
+        // Gallery Lightbox Logic
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lb.style.display = 'flex';
+        } 
+
+            // --- SCROLL TO TOP LOGIC ---
+window.addEventListener('scroll', function() {
+    const scrollBtn = document.getElementById("scrollTopBtn");
+    // Check if user has scrolled more than 300px
+    const scrollDistance = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollDistance > 300) {
+        scrollBtn.style.display = "flex"; // Changed to flex for centering
+    } else {
+        scrollBtn.style.display = "none";
+    }
+});
+
+        // Toggle mobile responsive menu block
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('menuIcon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.className = "fa-solid fa-xmark text-2xl";
+            } else {
+                menu.classList.add('hidden');
+                icon.className = "fa-solid fa-bars text-2xl";
             }
         }
+
+        // Active State Navigation Styling (Highlight selected menu option)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('.nav-link').forEach(l => {
+                    l.classList.remove('text-pastel-brand', 'border-pastel-brand');
+                    l.classList.add('border-transparent');
+                });
+                this.classList.add('text-pastel-brand', 'border-pastel-brand');
+                this.classList.remove('border-transparent');
+            });
+        });
+
+        // Switch custom Academics drawer view
+        function switchAcademicTab(tabName) {
+            const contents = document.querySelectorAll('.academic-tab-content');
+            contents.forEach(content => content.classList.add('hidden'));
+
+            const buttons = document.querySelectorAll('.academic-tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-pastel-sky', 'text-white', 'active');
+                btn.classList.add('bg-white', 'text-pastel-deep', 'hover:bg-pastel-glacier');
+            });
+
+            document.getElementById('tab-' + tabName).classList.remove('hidden');
+
+            const activeButton = document.getElementById('btn-' + tabName);
+            activeButton.classList.remove('bg-white', 'text-pastel-deep', 'hover:bg-pastel-glacier');
+            activeButton.classList.add('bg-pastel-sky', 'text-white', 'active');
+        }
+
+   
+
+        // Interactive Media Filter
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Update button styles
+            document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-pastel-sky', 'text-white');
+                btn.classList.add('bg-white', 'text-pastel-slate');
+            });
+            event.currentTarget.classList.add('bg-pastel-sky', 'text-white');
+            event.currentTarget.classList.remove('bg-white', 'text-pastel-slate');
+        }
+
+        // Code of Conduct accordion toggles
+        function toggleConductAccordion(index) {
+            const content = document.getElementById('conductContent' + index);
+            const icon = document.getElementById('conductIcon' + index);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Sticky action button morph on scroll
+        window.addEventListener('scroll', function() {
+            const enrollBtn = document.getElementById('enroll-button');
+            if (!enrollBtn) return;
+            
+            // Trigger morph once scrolled past the hero section (350px)
+            if (window.scrollY > 350) {
+                enrollBtn.classList.add('fixed', 'top-[135px]', 'right-4', 'sm:right-8', 'z-50', 'shadow-2xl', 'scale-95', 'md:scale-100');
+                enrollBtn.classList.remove('w-full', 'sm:w-auto');
+                enrollBtn.classList.add('w-auto');
+            } else {
+                enrollBtn.classList.remove('fixed', 'top-[135px]', 'right-4', 'sm:right-8', 'z-50', 'shadow-2xl', 'scale-95', 'md:scale-100', 'w-auto');
+                enrollBtn.classList.add('w-full', 'sm:w-auto');
+            }
+        });
+
+        // Initialize default calculations on DOM load
+        window.onload = function() {
+            calculateTermFees();
+        }
+
+//Contact form
+        function sendToWhatsApp(event) {
+        event.preventDefault(); // Prevents the form from submitting normally
+
+        // Get values from inputs
+        const name = document.getElementById('contactName').value;
+        const email = document.getElementById('contactEmail').value;
+        const message = document.getElementById('contactMessageText').value;
+
+        // Construct the WhatsApp message
+        const whatsappNumber = "256772500739"; // PUT YOUR ACTUAL NUMBER HERE
+        const text = `*Inquiry Details*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Message:* ${message}`;
+        
+        // Open WhatsApp
+        const url = `https://wa.me/${whatsappNumber}?text=${text}`;
+        window.open(url, '_blank');
+    }
     </script>
+
+      <button id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+        class="bg-pastel-sky text-white w-14 h-14 rounded-full shadow-2xl border-2 border-white/20 flex items-center justify-center">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+</button>
+
+<div id="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="" alt="Zoomed View">
+        <p class="absolute bottom-10 text-white font-bold">Click anywhere to close</p>
+    </div>
+
+<script>
+    // Lightbox Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const images = document.querySelectorAll('img'); // Selects all images on the page
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        images.forEach(image => {
+            // Only add click events to images you want to expand
+            // You can add a class like 'expandable' to specific images and use:
+            // if (image.classList.contains('expandable')) { ... }
+            image.addEventListener('click', function() {
+                lightbox.style.display = 'flex';
+                lightboxImg.src = this.src;
+            });
+        });
+    });
+</script>
 </body>
 </html>
