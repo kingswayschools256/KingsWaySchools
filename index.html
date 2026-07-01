@@ -545,60 +545,67 @@
     </div> 
  
     <script>
-        
-        // Tab switching logic 
+         // Tab switching logic 
 function switchTab(targetSect) {
-    // Hide all sections
-    document.querySelectorAll('.section-content').forEach(section => {
-        section.classList.add('hidden');
-    });
-
-    // Deactivate all tab buttons cleanly
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        // 1. Remove all active states (including active background and white text)
-        btn.classList.remove('active', 'bg-pastel-deep', 'text-white', 'shadow-md');
-        
-        // 2. Apply inactive states: white background, deep text, and hover effects
-        btn.classList.add('bg-white', 'text-pastel-deep', 'hover:bg-slate-50'); 
-    });
-
-    // Show target section
-    const targetEl = document.getElementById(`sect-${targetSect}`);
-    if (targetEl) targetEl.classList.remove('hidden');
-
-    // Activate corresponding tab button
-    const activeBtn = document.getElementById(`tab-${targetSect}`);
-    if (activeBtn) {
-        // 3. Remove inactive states from the clicked button so they don't conflict
-        activeBtn.classList.remove('bg-white', 'text-pastel-deep', 'hover:bg-slate-50');
-        
-        // 4. Force active states: deep background, white text for readability, shadow, and active tag
-        activeBtn.classList.add('bg-pastel-deep', 'text-white', 'shadow-md', 'active');
-    }
-
-    // Pause high school video if switching away
-    if (targetSect !== 'highschool') {
-        const video = document.getElementById('campus-video');
-        const playIcon = document.getElementById('play-icon');
-        const overlay = document.getElementById('video-overlay');
-        if (video && !video.paused) {
-            video.pause();
-            playIcon.className = 'fa-solid fa-play text-2xl ml-1';
-            overlay.classList.remove('opacity-0');
+    try {
+        // 1. Hide all content sections safely
+        const sections = document.querySelectorAll('.section-content');
+        if (sections.length > 0) {
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
         }
-    }
-}
 
-    // Pause high school video if switching away
-    if (targetSect !== 'highschool') {
-        const video = document.getElementById('campus-video');
-        const playIcon = document.getElementById('play-icon');
-        const overlay = document.getElementById('video-overlay');
-        if (video && !video.paused) {
-            video.pause();
-            playIcon.className = 'fa-solid fa-play text-2xl ml-1';
-            overlay.classList.remove('opacity-0');
+        // 2. Deactivate all tab buttons cleanly
+        const buttons = document.querySelectorAll('.tab-btn');
+        if (buttons.length > 0) {
+            buttons.forEach(btn => {
+                // Remove all active states
+                btn.classList.remove('active', 'bg-pastel-deep', 'text-white', 'shadow-md');
+                // Ensure other buttons continue to be shown with white background and text-pastel-deep color
+                btn.classList.add('bg-white', 'text-pastel-deep', 'hover:bg-slate-50'); 
+            });
         }
+
+        // 3. Show target content section safely
+        const targetEl = document.getElementById(`sect-${targetSect}`);
+        if (targetEl) {
+            targetEl.classList.remove('hidden');
+        }
+
+        // 4. Activate the corresponding clicked tab button
+        const activeBtn = document.getElementById(`tab-${targetSect}`);
+        if (activeBtn) {
+            // Remove the unselected/inactive state styling
+            activeBtn.classList.remove('bg-white', 'text-pastel-deep', 'hover:bg-slate-50');
+            // Force the active color state: deep background with highly legible white text
+            activeBtn.classList.add('bg-pastel-deep', 'text-white', 'shadow-md', 'active');
+        }
+
+        // 5. Pause high school video safely (checking if each element exists before trying to modify it)
+        if (targetSect !== 'highschool') {
+            const video = document.getElementById('campus-video');
+            const playIcon = document.getElementById('play-icon');
+            const overlay = document.getElementById('video-overlay');
+            
+            // Safe guard: only touch the video if it actually exists in your HTML
+            if (video && !video.paused) {
+                video.pause();
+                
+                // Safe guard: only modify the play icon if it exists
+                if (playIcon) {
+                    playIcon.className = 'fa-solid fa-play text-2xl ml-1';
+                }
+                
+                // Safe guard: only modify the overlay if it exists
+                if (overlay) {
+                    overlay.classList.remove('opacity-0');
+                }
+            }
+        }
+    } catch (error) {
+        // Log any isolated warnings to console without halting the browser interface
+        console.warn("Tab switching completed safely: ", error.message);
     }
 }
         // Slideshow controls for Nursery Carousel
