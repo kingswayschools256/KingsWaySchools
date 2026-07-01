@@ -364,19 +364,19 @@
     </div>
            
             <!-- Tab Button Row -->
-    <div class="flex flex-wrap justify-center gap-3 p-1.5 bg-slate-100/80 rounded-2xl w-full max-w-2xl border border-slate-200 !-mt-8">                    
-            <button onclick="switchTab('nursery')" id="tab-nursery" class="tab-btn active px-5 py-3 rounded-xl font-bold text-sm transition-all flex items-center gap-2 flex-1 justify-center bg-pastel-sky text-white shadow-md">
-                     Nursery School
-                </button>
-                <button onclick="switchTab('primary')" id="tab-primary" class="tab-btn px-5 py-3 rounded-xl font-bold text-sm transition-all flex items-center gap-2 flex-1 justify-center bg-pastel-sky text-white">
-                    
-                    Primary School
-                </button>
-                <button onclick="switchTab('highschool')" id="tab-highschool" class="tab-btn px-5 py-3 rounded-xl font-bold text-sm transition-all flex items-center gap-2 flex-1 justify-center bg-pastel-sky text-white">
-                    
-                    Secondary School
-                </button>
-            </div>
+  <div class="flex flex-wrap justify-center gap-3 p-1.5 bg-slate-100/80 rounded-2xl w-full max-w-2xl border border-slate-200 !-mt-8">                    
+    <button onclick="switchTab('nursery')" id="tab-nursery" class="tab-btn active px-5 py-3 rounded-xl font-bold text-sm transition-all flex items-center gap-2 flex-1 justify-center bg-pastel-deep text-white shadow-md">
+        Nursery School
+    </button>
+    
+    <button onclick="switchTab('primary')" id="tab-primary" class="tab-btn px-5 py-3 rounded-xl font-bold text-sm transition-all flex items-center gap-2 flex-1 justify-center bg-white text-pastel-sky hover:bg-slate-50">
+        Primary School
+    </button>
+    
+    <button onclick="switchTab('highschool')" id="tab-highschool" class="tab-btn px-5 py-3 rounded-xl font-bold text-sm transition-all flex items-center gap-2 flex-1 justify-center bg-white text-pastel-sky hover:bg-slate-50">
+        Secondary School
+    </button>
+</div>
               <div class="-mt-9 mb-9 text-center">
    
     <p class="font-extrabold text-slate-900 text-[14px] italic">
@@ -547,38 +547,43 @@
     <script>
         // Tab switching logic
         function switchTab(targetSect) {
-            // Hide all sections
-            document.querySelectorAll('.section-content').forEach(section => {
-                section.classList.add('hidden');
-            });
+    // Hide all sections
+    document.querySelectorAll('.section-content').forEach(section => {
+        section.classList.add('hidden');
+    });
 
-            // Deactivate all tab buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('text-white', 'active');
-                btn.classList.add('bg-white', 'text-white', 'hover:bg-pastel-deep');
-            });
+    // Deactivate all tab buttons cleanly
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-pastel-deep', 'shadow-md');
+        // Add the unselected styling: background white, blue text
+        btn.classList.add('bg-white', 'text-pastel-sky', 'hover:bg-slate-50'); 
+    });
 
-            // Show target section
-            document.getElementById(`sect-${targetSect}`).classList.remove('hidden');
+    // Show target section
+    const targetEl = document.getElementById(`sect-${targetSect}`);
+    if (targetEl) targetEl.classList.remove('hidden');
 
-            // Activate corresponding tab button
-            const activeBtn = document.getElementById(`tab-${targetSect}`);
-            activeBtn.classList.remove('text-white');
-            activeBtn.classList.add('bg-pastel-deep', 'text-white', 'shadow-md');
+    // Activate corresponding tab button
+    const activeBtn = document.getElementById(`tab-${targetSect}`);
+    if (activeBtn) {
+        // Remove unselected background/text color
+        activeBtn.classList.remove('bg-white', 'text-pastel-sky', 'hover:bg-slate-50');
+        // Force the active color state cleanly
+        activeBtn.classList.add('bg-pastel-deep', 'text-white', 'shadow-md', 'active');
+    }
 
-            // Pause high school video if switching away
-            if (targetSect !== 'highschool') {
-                const video = document.getElementById('campus-video');
-                const playIcon = document.getElementById('play-icon');
-                const overlay = document.getElementById('video-overlay');
-                if (video && !video.paused) {
-                    video.pause();
-                    playIcon.className = 'fa-solid fa-play text-2xl ml-1';
-                    overlay.classList.remove('opacity-0');
-                }
-            }
+    // Pause high school video if switching away
+    if (targetSect !== 'highschool') {
+        const video = document.getElementById('campus-video');
+        const playIcon = document.getElementById('play-icon');
+        const overlay = document.getElementById('video-overlay');
+        if (video && !video.paused) {
+            video.pause();
+            playIcon.className = 'fa-solid fa-play text-2xl ml-1';
+            overlay.classList.remove('opacity-0');
         }
-
+    }
+}
         // Slideshow controls for Nursery Carousel
         let nurseryIndex = 0;
         let nurseryInterval;
