@@ -491,19 +491,27 @@
         </div>
 
         <!-- SECTION 3: HIGH SCHOOL (HIDDEN BY DEFAULT) -->
+      <!-- SECTION: HIGH SCHOOL -->
         <div id="sect-highschool" class="section-content grid grid-cols-1 lg:grid-cols-12 gap-8 items-center hidden duration-300">
-            <!-- Left Side: Interactive Video Player Mockup -->
+            <!-- Left Side: Video Player -->
             <div class="lg:col-span-5 relative">
-                <div class="bg-gradient-to-tr from-purple-500 to-indigo-600 rounded-3xl p-1 shadow-xl relative overflow-hidden h-[380px]">
+                <div class="rounded-3xl p-1 shadow-xl relative overflow-hidden h-[380px]">
+                    <!-- Kept bg-black underneath so there is a clean, instant transition when the file mounts -->
                     <div class="relative bg-black rounded-[20px] overflow-hidden h-full flex items-center justify-center group/video">
                         
-                        <!-- Stock Education/Campus Video loops elegantly -->
-                        <video id="campus-video" class="w-full h-full object-cover opacity-80" loop muted playsinline poster="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=600">
+                        <!-- Video player elements configured for instant seamless loops -->
+                        <video id="campus-video" 
+                               class="w-full h-full object-cover opacity-80" 
+                               autoplay 
+                               loop 
+                               muted 
+                               playsinline 
+                               preload="auto"
+                               poster="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=600">
                             <source src="images/Highschool.mp4" type="video/mp4">
-                           
+                            Your browser does not support the video tag.
                         </video>
 
-                       
                     </div>
                 </div>
             </div>
