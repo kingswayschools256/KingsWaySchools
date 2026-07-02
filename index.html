@@ -511,7 +511,7 @@
                             Your browser does not support the video tag.
                         </video>
 
-                        <!-- Center Play/Pause Button overlay (fades out on hover) -->
+                        <!-- Center Play/Pause Button overlay -->
                         <button id="video-play-btn" 
                                 class="absolute z-20 flex items-center justify-center w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-white transition-all duration-300 hover:scale-110 active:scale-95 group-hover/video:opacity-100"
                                 onclick="const vid = document.getElementById('campus-video'); if(vid.paused){ vid.play(); this.innerHTML = '&#x23F8;'; } else { vid.pause(); this.innerHTML = '&#x25B6;'; }">
@@ -519,13 +519,26 @@
                             &#x23F8;
                         </button>
 
-                        <!-- Bottom Right Expand/Fullscreen Button -->
-                        <button class="absolute bottom-4 right-4 z-20 flex items-center justify-center w-9 h-9 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20 text-white transition-all duration-200 hover:bg-black/60 active:scale-95 opacity-0 group-hover/video:opacity-100"
-                                title="Expand Video"
-                                onclick="const vid = document.getElementById('campus-video'); if(vid.requestFullscreen){ vid.requestFullscreen(); } else if(vid.webkitRequestFullscreen){ vid.webkitRequestFullscreen(); } else if(vid.msRequestFullscreen){ vid.msRequestFullscreen(); }">
-                            <!-- Simple geometric Fullscreen Icon Box -->
-                            &#x26F6;
-                        </button>
+                        <!-- Bottom Controls Wrapper Group (Reveals smoothly on mouse hover) -->
+                        <div class="absolute bottom-4 right-4 z-20 flex items-center space-x-2 opacity-0 group-hover/video:opacity-100 transition-opacity duration-200">
+                            
+                            <!-- Sound Mute/Unmute Button -->
+                            <button id="video-volume-btn"
+                                    class="flex items-center justify-center w-9 h-9 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20 text-white transition-all duration-200 hover:bg-black/60 active:scale-95"
+                                    title="Toggle Sound"
+                                    onclick="const vid = document.getElementById('campus-video'); if(vid.muted){ vid.muted = false; this.innerHTML = '&#x1F50A;'; } else { vid.muted = true; this.innerHTML = '&#x1F507;'; }">
+                                <!-- Starts muted showing speaker-with-red-line icon -->
+                                &#x1F507;
+                            </button>
+
+                            <!-- Expand/Fullscreen Button -->
+                            <button class="flex items-center justify-center w-9 h-9 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20 text-white transition-all duration-200 hover:bg-black/60 active:scale-95"
+                                    title="Expand Video"
+                                    onclick="const vid = document.getElementById('campus-video'); if(vid.requestFullscreen){ vid.requestFullscreen(); } else if(vid.webkitRequestFullscreen){ vid.webkitRequestFullscreen(); } else if(vid.msRequestFullscreen){ vid.msRequestFullscreen(); }">
+                                &#x26F6;
+                            </button>
+                            
+                        </div>
 
                     </div>
                 </div>
