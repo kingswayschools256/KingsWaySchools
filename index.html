@@ -869,89 +869,52 @@ function switchTab(targetSect) {
             </p>
         </div>
 
-        <!-- NURSERY SCHOOL COMPONENT SECTION (Empty placeholder where you can add your code later) -->
+        <!-- NURSERY SCHOOL COMPONENT SECTION -->
         <div id="panel-nursery-academics" class="academic-panel-view hidden bg-white rounded-3xl p-8 border border-pastel-sky/30 shadow-sm text-center">
             <h3 class="font-sans text-2xl font-bold text-[#c084fc] mb-2">Nursery School Academic Program</h3>
-<div class="space-y-8">
-    <div class="bg-white rounded-3xl p-6 md:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12 text-left">
-        
-        <!-- Left Side: 4-Photo Slideshow Layout Framework -->
-        <div class="relative group" id="nursery-academics-carousel">
-            <div class="rounded-3xl p-1 shadow-xl relative overflow-hidden h-[380px]">
-                <div class="relative rounded-[20px] overflow-hidden h-full">
+            <div class="space-y-8">
+                <div class="bg-white rounded-3xl p-6 md:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12 text-left">
                     
-                    <!-- Slide 1 -->
-                    <div class="nursery-academic-slide absolute inset-0 opacity-100 pointer-events-auto" data-slide-index="0">
-                        <img src="images/Home_Slide4.jpg" alt="Nursery Classroom Activities" class="w-full h-full object-cover">
+                    <!-- Left Side: Text Content & Core Learning Modules -->
+                    <div class="space-y-6">
+                        <h3 class="font-sans text-2xl font-bold text-[#c084fc]">Nursery School (Ages 3 - 6)</h3>
+                        <p class="text-sm text-pastel-slate">
+                            At Kings Way Nursery School, we establish a joyful and nurturing early educational ecosystem. Utilizing modern early-learning frameworks, we cultivate essential cognitive, physical, and foundational social masteries.
+                        </p>
+                        
+                        <div class="bg-pastel-ice p-4 rounded-2xl border border-pastel-sky space-y-2">
+                            <span class="text-xs uppercase font-bold text-pastel-deep">Core Developmental Modules</span>
+                            <ul class="text-xs space-y-1.5 text-pastel-slate font-medium">
+                                <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Literacy & Language Acquisition Development</li>
+                                <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Numeracy Foundations & Spatial Reasoning</li>
+                                <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Creative Arts, Crafts, and Music Expression</li>
+                                <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Fine & Gross Motor Coordination Skills</li>
+                            </ul>
+                        </div>
                     </div> 
 
-                    <!-- Slide 2 -->
-                    <div class="nursery-academic-slide absolute inset-0 opacity-0 pointer-events-none" data-slide-index="1">
-                        <img src="images/Home_Slide5.jpg" alt="Play-Based Learning Space" class="w-full h-full object-cover"> 
+                    <!-- Right Side: Specific Classes Grid Layout Section -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4"> 
+                        <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
+                            <i class="fa-solid fa-child text-pastel-deep text-xl"></i>
+                            <h4 class="font-bold text-sm text-[#c084fc]">Baby Class</h4> 
+                            <p class="text-xs text-pastel-slate">Focusing on basic socialization, language adaptation, shapes, and structural orientation patterns.</p>
+                        </div>
+                        <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
+                            <i class="fa-solid fa-children text-pastel-deep text-xl"></i>
+                            <h4 class="font-bold text-sm text-[#c084fc]">Middle Class</h4>
+                            <p class="text-xs text-pastel-slate">Advancing toward early phonetic letter tracing, fundamental drawing assignments, and number tracing.</p>
+                        </div>
+                        <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28] sm:col-span-2">
+                            <i class="fa-solid fa-user-graduate text-pastel-deep text-xl"></i>
+                            <h4 class="font-bold text-sm text-[#c084fc]">Top Class</h4>
+                            <p class="text-xs text-pastel-slate">Honing robust pre-reading sentences, mathematical equations, and core primary preparation modules.</p>
+                        </div>
                     </div>
 
-                    <!-- Slide 3 --> 
-                    <div class="nursery-academic-slide absolute inset-0 opacity-0 pointer-events-none" data-slide-index="2">
-                        <img src="images/KWS_Nursery3.jpg" alt="Creative Arts and Crafts" class="w-full h-full object-cover"> 
-                    </div>
-                  
-                    <!-- Slide 4 -->
-                    <div class="nursery-academic-slide absolute inset-0 opacity-0 pointer-events-none" data-slide-index="3">
-                        <img src="images/KWS_Nursery4.jpg" alt="Outdoor Recreation Development" class="w-full h-full object-cover"> 
-                    </div>
-                                  
-                    <!-- Navigation Indicator Dots -->
-                    <div class="absolute bottom-4 inset-x-0 flex justify-center space-x-2 z-20">
-                        <button class="nursery-ac-dot w-2 h-2 rounded-full bg-white transition-all scale-125" onclick="setNurseryAcademicSlide(0)"></button>
-                        <button class="nursery-ac-dot w-2 h-2 rounded-full bg-white/50 transition-all" onclick="setNurseryAcademicSlide(1)"></button>
-                        <button class="nursery-ac-dot w-2 h-2 rounded-full bg-white/50 transition-all" onclick="setNurseryAcademicSlide(2)"></button>
-                        <button class="nursery-ac-dot w-2 h-2 rounded-full bg-white/50 transition-all" onclick="setNurseryAcademicSlide(3)"></button>
-                     </div>
-                </div>
+                </div> 
             </div>
         </div>
-
-        <!-- Right Side: Text, Classes Overview & Core Learning Modules -->
-        <div class="space-y-6">
-            <h3 class="font-sans text-2xl font-bold text-[#c084fc]">Nursery School (Ages 3 - 6)</h3>
-            <p class="text-sm text-pastel-slate">
-                At Kings Way Nursery School, we establish a joyful and nurturing early educational ecosystem. Utilizing modern early-learning frameworks, we cultivate essential cognitive, physical, and foundational social masteries.
-            </p>
-
-              <!-- Specific Classes Grid Layout Section -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4"> 
-                <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
-                    <i class="fa-solid fa-child text-pastel-deep text-xl"></i>
-                    <h4 class="font-bold text-sm text-[#c084fc]">Baby Class</h4> 
-                    <p class="text-[11px] text-pastel-slate">Focusing on basic socialization, language adaptation, shapes, and structural orientation patterns.</p>
-                </div>
-                <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
-                    <i class="fa-solid fa-children text-pastel-deep text-xl"></i>
-                    <h4 class="font-bold text-sm text-[#c084fc]">Middle Class</h4>
-                    <p class="text-[11px] text-pastel-slate">Advancing toward early phonetic letter tracing, fundamental drawing assignments, and number tracing.</p>
-                </div>
-                <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
-                    <i class="fa-solid fa-user-graduate text-pastel-deep text-xl"></i>
-                    <h4 class="font-bold text-sm text-[#c084fc]">Top Class</h4>
-                    <p class="text-[11px] text-pastel-slate">Honing robust pre-reading sentences, mathematical equations, and core primary preparation modules.</p>
-                </div>
-            </div>
-            
-            <div class="bg-pastel-ice p-4 rounded-2xl border border-pastel-sky space-y-2">
-                <span class="text-xs uppercase font-bold text-pastel-deep">Core Developmental Modules</span>
-                <ul class="text-xs space-y-1.5 text-pastel-slate font-medium">
-                    <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Literacy & Language Acquisition Development</li>
-                    <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Numeracy Foundations & Spatial Reasoning</li>
-                    <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Creative Arts, Crafts, and Music Expression</li>
-                    <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Fine & Gross Motor Coordination Skills</li>
-                </ul>
-            </div>
-
-          
-
-        </div> 
-    </div>
-</div>
 
 <!-- Supporting Carousel JavaScript for the Nursery Academic slide panel -->
 <script>
