@@ -1020,6 +1020,35 @@ function switchTab(targetSect) {
         </div>
     </div>
 </section>
+
+<script>
+    function changeAcademicLevel(levelName) {
+    // 1. Hide all the primary academic panel views cleanly
+    document.querySelectorAll('.academic-panel-view').forEach(panel => {
+        panel.classList.add('hidden');
+    });
+
+    // 2. Remove the selected active styling flags from the buttons
+    document.querySelectorAll('.academic-main-btn').forEach(btn => {
+        btn.classList.remove('bg-pastel-deep', 'text-white', 'shadow-md', 'active');
+        btn.classList.add('bg-white', 'text-pastel-deep', 'hover:bg-slate-50');
+    });
+
+    // 3. Reveal the panel element that was chosen by the user
+    const chosenPanel = document.getElementById(`panel-${levelName}-academics`);
+    if (chosenPanel) {
+        chosenPanel.classList.remove('hidden');
+    }
+
+    // 4. Paint the active color styling back onto the selected button item
+    const clickedButton = document.getElementById(`tab-${levelName}-academics`);
+    if (clickedButton) {
+        clickedButton.classList.remove('bg-white', 'text-pastel-deep', 'hover:bg-slate-50');
+        clickedButton.classList.add('bg-pastel-deep', 'text-white', 'shadow-md', 'active');
+    }
+}
+</script>
+
     <!-- Uniform Section -->
     <section id="uniform" class="py-20 bg-white border-b border-pastel-glacier scroll-mt-32">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
