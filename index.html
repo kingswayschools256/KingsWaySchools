@@ -956,145 +956,152 @@ function switchTab(targetSect) {
         <!-- PRIMARY SCHOOL COMPONENT SECTION -->
         <div id="panel-primary-academics" class="academic-panel-view hidden bg-white rounded-3xl p-8 border border-pastel-sky/30 shadow-sm text-center">
             <h3 class="font-sans text-2xl font-bold text-[#c084fc] mb-2">Primary School Academic Program</h3>
-            <p class="text-sm text-pastel-slate">Your upcoming primary curriculum design details will show up right here.</p>
+            <div class="space-y-8">
+                <div class="bg-white rounded-3xl p-6 md:p-10 shadow-sm text-center">
+                    <p class="text-sm text-pastel-slate">Your upcoming primary curriculum design details will show up right here.</p>
+                </div>
+            </div>
         </div>
 
         <!-- HIGH SCHOOL COMPONENT WRAPPER -->
-        <div id="panel-highschool-academics" class="academic-panel-view bg-white rounded-3xl p-8 border border-pastel-sky/30 shadow-sm text-center space-y-8">
-            
-            <!-- Interactive Tab Buttons (UNCHANGED) -->
-            <div class="flex flex-wrap justify-center gap-2 mb-10">
-                <button onclick="switchAcademicTab('oLevel')" id="btn-oLevel" class="academic-tab-btn active px-6 py-3 rounded-xl text-sm font-bold tracking-wider uppercase transition-all shadow-xs bg-pastel-sky text-white">
-                    O Level Curriculum
-                </button>
-                <button onclick="switchAcademicTab('aLevelSciences')" id="btn-aLevelSciences" class="academic-tab-btn px-6 py-3 rounded-xl text-sm font-bold tracking-wider uppercase transition-all shadow-xs bg-white text-pastel-deep hover:bg-pastel-glacier">
-                    A Level Sciences
-                </button>
-                <button onclick="switchAcademicTab('aLevelArts')" id="btn-aLevelArts" class="academic-tab-btn px-6 py-3 rounded-xl text-sm font-bold tracking-wider uppercase transition-all shadow-xs bg-white text-pastel-deep hover:bg-pastel-glacier">
-                    A Level Arts & Humanities
-                </button>
-            </div>
-
-            <div class="-mt-6 mb-9 text-center">
-                <p class="!mt-1 font-extrabold text-pastel-deep text-[14px] italic">
-                    Click on any of above buttons to view additional information.
-                </p>
-            </div>
- 
-            <div id="tab-oLevel" class="academic-tab-content space-y-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 text-left">
-                    <div class="space-y-6">
-                        <h3 class="font-sans text-2xl font-bold text-[#c084fc]">O Level (S.1 - S.4)</h3>
-                        <p class="text-sm text-pastel-slate">
-                            At O-Level, we nurture robust scientific inquiry, technical skills, and cultural awareness. Following the revised lower secondary UNEB curriculum, we emphasize active-learning methodologies.
-                        </p>
-                        <div class="bg-pastel-ice p-4 rounded-2xl border border-pastel-sky space-y-2">
-                            <span class="text-xs uppercase font-bold text-pastel-deep">Key Mandatory Modules</span>
-                            <ul class="text-xs space-y-1.5 text-pastel-slate font-medium">
-                                <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Mathematics & General Science</li>
-                                <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>English Language & Literature</li>
-                                <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>ICT and Computer Science Studies</li>
-                                <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Agriculture & Life Skills</li>
-                            </ul>
-                        </div>
-                    </div> 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
-                            <i class="fa-solid fa-laptop-code text-pastel-deep text-xl"></i>
-                            <h4 class="font-bold text-sm text-[#c084fc]">Computer Science</h4>
-                            <p class="text-xs text-pastel-slate">Hands-on practice with programming languages, hardware troubleshooting, and typing masteries.</p>
-                        </div>
-                        <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
-                            <i class="fa-solid fa-flask-vial text-pastel-deep text-xl"></i>
-                            <h4 class="font-bold text-sm text-[#c084fc]">Core Sciences</h4>
-                            <p class="text-xs text-pastel-slate">In-depth laboratory research focusing on Chemistry, Physics, and Biological sciences.</p>
-                        </div>
-                        <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
-                            <i class="fa-solid fa-palette text-pastel-deep text-xl"></i>
-                            <h4 class="font-bold text-sm text-[#c084fc]">Fine Arts & Design</h4>
-                            <p class="text-xs text-pastel-slate">Nurturing creative pathways for students who plan careers in design, graphics, or crafts.</p>
-                        </div>
-                        <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
-                            <i class="fa-solid fa-globe text-pastel-deep text-xl"></i>
-                            <h4 class="font-bold text-sm text-[#c084fc]">Humanities</h4>
-                            <p class="text-xs text-pastel-slate">Building civic awareness through detailed lessons in Geography, History, and Religious Studies.</p>
-                        </div>
-                    </div>
+        <div id="panel-highschool-academics" class="academic-panel-view hidden bg-white rounded-3xl p-8 border border-pastel-sky/30 shadow-sm text-center">
+            <h3 class="font-sans text-2xl font-bold text-[#c084fc] mb-2">High School Academic Program</h3>
+            <div class="space-y-8">
+                
+                <!-- Interactive Tab Buttons (UNCHANGED) -->
+                <div class="flex flex-wrap justify-center gap-2 mb-10">
+                    <button onclick="switchAcademicTab('oLevel')" id="btn-oLevel" class="academic-tab-btn active px-6 py-3 rounded-xl text-sm font-bold tracking-wider uppercase transition-all shadow-xs bg-pastel-sky text-white">
+                        O Level Curriculum
+                    </button>
+                    <button onclick="switchAcademicTab('aLevelSciences')" id="btn-aLevelSciences" class="academic-tab-btn px-6 py-3 rounded-xl text-sm font-bold tracking-wider uppercase transition-all shadow-xs bg-white text-pastel-deep hover:bg-pastel-glacier">
+                        A Level Sciences
+                    </button>
+                    <button onclick="switchAcademicTab('aLevelArts')" id="btn-aLevelArts" class="academic-tab-btn px-6 py-3 rounded-xl text-sm font-bold tracking-wider uppercase transition-all shadow-xs bg-white text-pastel-deep hover:bg-pastel-glacier">
+                        A Level Arts & Humanities
+                    </button>
                 </div>
-            </div>
 
-            <div id="tab-aLevelSciences" class="academic-tab-content hidden space-y-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 text-left">
-                    <div class="space-y-6">
-                        <h3 class="font-sans text-[22px] font-bold text-[#c084fc]">A Level Sciences (S.5 - S.6)</h3>
-                        <p class="text-sm text-pastel-slate">
-                            Our advanced science combinations prepare students for prestigious medical, engineering, and digital science degrees. Our alumni regularly proceed to top Ugandan universities on direct state sponsorship.
-                        </p>
-                        <div class="bg-pastel-ice p-4 rounded-2xl border border-pastel-sky">
-                            <span class="text-xs uppercase font-bold text-pastel-deep block mb-2">Available Science Combinations</span>
-                            <div class="grid grid-cols-2 gap-2 text-xs font-bold text-[#c084fc]">
-                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">PCM (Physics, Chemistry, Math)</span>
-                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">PCB (Physics, Chemistry, Biology)</span>
-                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">BCG (Biology, Chemistry, Geography)</span>
-                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">PEM (Physics, Economics, Math)</span>
+                <div class="-mt-6 mb-9 text-center">
+                    <p class="!mt-1 font-extrabold text-pastel-deep text-[14px] italic">
+                        Click on any of above buttons to view additional information.
+                    </p>
+                </div>
+     
+                <div id="tab-oLevel" class="academic-tab-content space-y-8">
+                    <div class="bg-white rounded-3xl p-6 md:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12 text-left">
+                        <div class="space-y-6">
+                            <h3 class="font-sans text-2xl font-bold text-[#c084fc]">O Level (S.1 - S.4)</h3>
+                            <p class="text-sm text-pastel-slate">
+                                At O-Level, we nurture robust scientific inquiry, technical skills, and cultural awareness. Following the revised lower secondary UNEB curriculum, we emphasize active-learning methodologies.
+                            </p>
+                            <div class="bg-pastel-ice p-4 rounded-2xl border border-pastel-sky space-y-2">
+                                <span class="text-xs uppercase font-bold text-pastel-deep">Key Mandatory Modules</span>
+                                <ul class="text-xs space-y-1.5 text-pastel-slate font-medium">
+                                    <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Mathematics & General Science</li>
+                                    <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>English Language & Literature</li>
+                                    <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>ICT and Computer Science Studies</li>
+                                    <li><i class="fa-solid fa-check text-pastel-brand mr-2"></i>Agriculture & Life Skills</li>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="border border-[#D59F28] flex items-start space-x-3 p-4 bg-[#fffdf0] rounded-xl">
-                            <div class="text-pastel-deep mt-1"><i class="fa-solid fa-vial"></i></div>
-                            <div>
-                                <h4 class="font-bold text-sm text-[#c084fc]">Fully Outfitted UNEB Laboratories</h4>
-                                <p class="text-xs text-pastel-slate">Each science student conducts weekly individual practical assignments in our spacious labs.</p>
+                        </div> 
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
+                                <i class="fa-solid fa-laptop-code text-pastel-deep text-xl"></i>
+                                <h4 class="font-bold text-sm text-[#c084fc]">Computer Science</h4>
+                                <p class="text-xs text-pastel-slate">Hands-on practice with programming languages, hardware troubleshooting, and typing masteries.</p>
                             </div>
-                        </div>
-                        <div class="border border-[#D59F28] flex items-start space-x-3 p-4 bg-[#fffdf0] rounded-xl">
-                            <div class="text-pastel-deep mt-1"><i class="fa-solid fa-microscope"></i></div>
-                            <div>
-                                <h4 class="font-bold text-sm text-[#c084fc]">Weekly Practice Assessment</h4>
-                                <p class="text-xs text-pastel-slate">Ongoing practical mock exams to hone analytical speed and accuracy under pressure.</p>
+                            <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
+                                <i class="fa-solid fa-flask-vial text-pastel-deep text-xl"></i>
+                                <h4 class="font-bold text-sm text-[#c084fc]">Core Sciences</h4>
+                                <p class="text-xs text-pastel-slate">In-depth laboratory research focusing on Chemistry, Physics, and Biological sciences.</p>
+                            </div>
+                            <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
+                                <i class="fa-solid fa-palette text-pastel-deep text-xl"></i>
+                                <h4 class="font-bold text-sm text-[#c084fc]">Fine Arts & Design</h4>
+                                <p class="text-xs text-pastel-slate">Nurturing creative pathways for students who plan careers in design, graphics, or crafts.</p>
+                            </div>
+                            <div class="p-4 bg-[#fffdf0] rounded-xl space-y-2 border border-[#D59F28]">
+                                <i class="fa-solid fa-globe text-pastel-deep text-xl"></i>
+                                <h4 class="font-bold text-sm text-[#c084fc]">Humanities</h4>
+                                <p class="text-xs text-pastel-slate">Building civic awareness through detailed lessons in Geography, History, and Religious Studies.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="tab-aLevelArts" class="academic-tab-content hidden space-y-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 text-left">
-                    <div class="space-y-6">
-                        <h3 class="font-sans text-[22px] font-bold text-[#c084fc]">A Level Arts & Humanities</h3>
-                        <p class="text-sm text-pastel-slate">
-                            Cultivating critical thinking, rhetorical mastery, and community leadership, our arts combinations establish excellent baselines for legal, education, administrative, and artistic careers.
-                        </p>
-                        <div class="bg-pastel-ice p-4 rounded-2xl border border-pastel-sky">
-                            <span class="text-xs uppercase font-bold text-pastel-deep block mb-2">Available Arts Combinations</span>
-                            <div class="grid grid-cols-2 gap-2 text-xs font-bold text-[#c084fc]">
-                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">HEG (History, Economics, Geography)</span>
-                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">DEG (C.R.E, Economics, Geography)</span>
-                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">HED (History, Economics, C.R.E)</span>
-                                <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">BCA (Arts focus combo)</span>
+                <div id="tab-aLevelSciences" class="academic-tab-content hidden space-y-8">
+                    <div class="bg-white rounded-3xl p-6 md:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12 text-left">
+                        <div class="space-y-6">
+                            <h3 class="font-sans text-[22px] font-bold text-[#c084fc]">A Level Sciences (S.5 - S.6)</h3>
+                            <p class="text-sm text-pastel-slate">
+                                Our advanced science combinations prepare students for prestigious medical, engineering, and digital science degrees. Our alumni regularly proceed to top Ugandan universities on direct state sponsorship.
+                            </p>
+                            <div class="bg-pastel-ice p-4 rounded-2xl border border-pastel-sky">
+                                <span class="text-xs uppercase font-bold text-pastel-deep block mb-2">Available Science Combinations</span>
+                                <div class="grid grid-cols-2 gap-2 text-xs font-bold text-[#c084fc]">
+                                    <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">PCM (Physics, Chemistry, Math)</span>
+                                    <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">PCB (Physics, Chemistry, Biology)</span>
+                                    <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">BCG (Biology, Chemistry, Geography)</span>
+                                    <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">PEM (Physics, Economics, Math)</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="border border-[#D59F28] flex items-start space-x-3 p-4 bg-[#fffdf0] rounded-xl">
-                            <div class="text-pastel-deep mt-1"><i class="fa-solid fa-scale-balanced"></i></div>
-                            <div>
-                                <h4 class="font-bold text-sm text-[#c084fc]">Debate & Public Address Societies</h4>
-                                <p class="text-xs text-pastel-slate">Regular inter-class and regional school debate competitions to hone self-confidence.</p>
+                        <div class="space-y-4">
+                            <div class="border border-[#D59F28] flex items-start space-x-3 p-4 bg-[#fffdf0] rounded-xl">
+                                <div class="text-pastel-deep mt-1"><i class="fa-solid fa-vial"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-[#c084fc]">Fully Outfitted UNEB Laboratories</h4>
+                                    <p class="text-xs text-pastel-slate">Each science student conducts weekly individual practical assignments in our spacious labs.</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="border border-[#D59F28] flex items-start space-x-3 p-4 bg-[#fffdf0] rounded-xl">
-                            <div class="text-pastel-deep mt-1"><i class="fa-solid fa-book-open"></i></div>
-                            <div>
-                                <h4 class="font-bold text-[#c084fc]">Well-Resourced Library and Archive</h4>
-                                <p class="text-xs text-pastel-slate">Housing standard reference texts, periodicals, and past exam papers for quick reference.</p>
+                            <div class="border border-[#D59F28] flex items-start space-x-3 p-4 bg-[#fffdf0] rounded-xl">
+                                <div class="text-pastel-deep mt-1"><i class="fa-solid fa-microscope"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-[#c084fc]">Weekly Practice Assessment</h4>
+                                    <p class="text-xs text-pastel-slate">Ongoing practical mock exams to hone analytical speed and accuracy under pressure.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <div id="tab-aLevelArts" class="academic-tab-content hidden space-y-8">
+                    <div class="bg-white rounded-3xl p-6 md:p-10 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12 text-left">
+                        <div class="space-y-6">
+                            <h3 class="font-sans text-[22px] font-bold text-[#c084fc]">A Level Arts & Humanities</h3>
+                            <p class="text-sm text-pastel-slate">
+                                Cultivating critical thinking, rhetorical mastery, and community leadership, our arts combinations establish excellent baselines for legal, education, administrative, and artistic careers.
+                            </p>
+                            <div class="bg-pastel-ice p-4 rounded-2xl border border-pastel-sky">
+                                <span class="text-xs uppercase font-bold text-pastel-deep block mb-2">Available Arts Combinations</span>
+                                <div class="grid grid-cols-2 gap-2 text-xs font-bold text-[#c084fc]">
+                                    <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">HEG (History, Economics, Geography)</span>
+                                    <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">DEG (C.R.E, Economics, Geography)</span>
+                                    <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">HED (History, Economics, C.R.E)</span>
+                                    <span class="bg-white p-2 rounded-lg border border-pastel-glacier text-center">BCA (Arts focus combo)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="border border-[#D59F28] flex items-start space-x-3 p-4 bg-[#fffdf0] rounded-xl">
+                                <div class="text-pastel-deep mt-1"><i class="fa-solid fa-scale-balanced"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-[#c084fc]">Debate & Public Address Societies</h4>
+                                    <p class="text-xs text-pastel-slate">Regular inter-class and regional school debate competitions to hone self-confidence.</p>
+                                </div>
+                            </div>
+                            <div class="border border-[#D59F28] flex items-start space-x-3 p-4 bg-[#fffdf0] rounded-xl">
+                                <div class="text-pastel-deep mt-1"><i class="fa-solid fa-book-open"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-[#c084fc]">Well-Resourced Library and Archive</h4>
+                                    <p class="text-xs text-pastel-slate">Housing standard reference texts, periodicals, and past exam papers for quick reference.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </section>
