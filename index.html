@@ -37,6 +37,23 @@
     
     <style>
 
+        /* Force the text and icon to stay side-by-side on the exact same line */
+button[type="submit"].bg-\[\#128C7E\] {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    gap: 8px !important;
+}
+
+/* Ensure the icon doesn't break into a block element */
+button[type="submit"].bg-\[\#128C7E\] i,
+button[type="submit"].bg-\[\#128C7E\] svg {
+    display: inline-block !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+}
 
 /* Clean, single override to force the background to fill the card */
 .rounded-xl {
@@ -1769,9 +1786,8 @@ function switchTab(targetSect) {
     </div>
 
     <div class="flex justify-center">
-      <button type="submit" class="bg-[#128C7E] text-white hover:bg-[#075E54] px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-xs inline-flex items-center justify-center gap-1.5 whitespace-nowrap">
-    <span>Send Message Via WhatsApp</span>
-    <i class="fa-brands fa-whatsapp text-base"></i>
+      <button type="submit" class="bg-[#128C7E] text-white hover:bg-[#075E54] px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition shadow-xs whitespace-nowrap">
+    Send Message Via WhatsApp <i class="fa-brands fa-whatsapp ml-1.5 text-base"></i>
 </button>
         </div>
         <div>
