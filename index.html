@@ -61,6 +61,15 @@
     flex-grow: 0 !important;
     min-height: auto !important;
 } 
+
+/* Keeps the text packed tightly together but forces the yellow background to fill the card completely */
+.bg-\[\#FFE094\] {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important; /* Keeps name and role locked tightly with no gap */
+    flex-grow: 1 !important; /* Stretches the yellow color to the bottom of both cards */
+    padding: 12px !important;
+}
            /* Lightbox styling */
         #lightbox {
             display: none;
