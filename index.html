@@ -36,19 +36,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-/* Fix only the Staff section jump on mobile without touching other pages */
-#staff, [id*="staff"] {
-    position: relative;
-}
 
-#staff::before, [id*="staff"]::before {
-    content: "";
-    display: block;
-    height: 120px; /* Creates the perfect window gap so the title never cuts off */
-    margin-top: -129px; /* Pulls the section grid up to keep your layout seamless */
-    visibility: hidden;
-    pointer-events: none;
-}
 
 /* Clean, single override to force the background to fill the card */
 .rounded-xl {
