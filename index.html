@@ -80,8 +80,7 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #0EA5E9;
         }
-
-/* Ensure the yellow background fills all cards fully */
+/* Keep the yellow background fully filling the container */
 .bg-\[\#FFE094\] {
     display: flex !important;
     flex-direction: column !important;
@@ -90,23 +89,20 @@
     padding: 12px !important;
 }
 
-/* Tighten the name box height to close the gap */
+/* Let the name container adapt to 1 or 2 lines naturally without fixed heights */
 .bg-\[\#FFE094\] h4 {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: block !important;
     text-align: center !important;
-    min-height: 38px !important;
-    height: 38px !important;
-    margin: 0 !important;
+    margin: 0 0 2px 0 !important; /* Forces the very next line to stay right under it */
     padding: 0 !important;
+    line-height: 1.2 !important;
 }
 
-/* Eliminate any remaining gap and pull the role text up to the next line */
+/* Keep the title completely locked onto the immediate next line with zero extra gap */
 .bg-\[\#FFE094\] p {
     display: block !important;
     text-align: center !important;
-    margin: 4px 0 0 0 !important; /* Negative top margin removes any remaining pixel space */
+    margin: 0 !important;
     padding: 0 !important;
     line-height: 1.2 !important;
 }
