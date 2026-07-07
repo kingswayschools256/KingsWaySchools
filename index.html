@@ -49,6 +49,18 @@
     visibility: hidden;
     pointer-events: none;
 }
+
+/* Prevent the cards from stretching down to match the text paragraph height */
+.rounded-xl.flex.flex-col {
+    align-self: start !important;
+    height: auto !important;
+}
+
+/* Allow the yellow box to shrink down to its natural text size */
+.rounded-xl .bg-\[\#FFE094\] {
+    flex-grow: 0 !important;
+    min-height: auto !important;
+}
            /* Lightbox styling */
         #lightbox {
             display: none;
@@ -435,7 +447,9 @@
                     </div>
              <div class="bg-[#FFE094] p-3 text-center border-t-4 border-pastel-periwinkle/30 flex-grow flex flex-col justify-center">
             <h4 class="text-lg font-bold text-slate-900">Loy Muramura</h4>
-            <p class="text-pastel-deep text-xs font-bold uppercase tracking-wide"> Co-Founder | Director of Kings Way Schools</p>
+            <p class="text-pastel-deep text-xs font-bold uppercase tracking-wide"> 
+                Co-Founder | Director of Kings Way Schools
+            </p>
         </div>
                 </div>
              </div>
