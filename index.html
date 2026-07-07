@@ -81,31 +81,30 @@
             background: #0EA5E9;
         }
 
-/* Collapse the text container completely and disable flex grow spacing */
+/* Force the text container to stretch to the exact bottom of the card layout */
 .bg-\[\#FFE094\] {
     display: flex !important;
     flex-direction: column !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-    height: auto !important;
-    flex-grow: 0 !important; /* Forces the box to shrink to text height */
+    justify-content: flex-start !important; /* Locks text elements tightly to the top */
+    flex-grow: 1 !important; /* Stretches the yellow background to fill all empty space */
     padding: 12px !important;
 }
 
-/* Remove fixed heights from names so everything sits naturally on the next line */
+/* Force names into a standardized row baseline layout block */
 .bg-\[\#FFE094\] h4 {
-    display: inline-block !important;
-    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     text-align: center !important;
+    min-height: 48px !important;
+    height: 48px !important;
     margin: 0 !important;
     padding: 0 !important;
-    line-height: 1.2 !important;
 }
 
-/* Force the title/role to sit directly underneath with zero extra gap */
+/* Instantly lock the role text onto the very next line with no double-spacing gaps */
 .bg-\[\#FFE094\] p {
-    display: inline-block !important;
-    width: 100% !important;
+    display: block !important;
     text-align: center !important;
     margin: 0 !important;
     padding: 0 !important;
