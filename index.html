@@ -80,6 +80,15 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #0EA5E9;
         }
+
+        /* Force the name headings to take up exactly the same height so they line up perfectly */
+.bg-\[\#FFE094\] h4 {
+    min-height: 3.5rem; /* Ensures a consistent baseline for names */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.25rem; /* Controls the exact gap directly to the next line role */
+}
     </style>
 </head>
 <body class="font-sans bg-[#fffdf0] text-pastel-slate antialiased leading-relaxed">
